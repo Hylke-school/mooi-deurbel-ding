@@ -9,7 +9,7 @@ Alle commands staan (onderaan) in ArduinoHandler. Elke command heeft zijn eigen 
 Er zijn bijna overal comments, dus ik raad aan om ze te lezen. **Lees de comments bij het Commands gedeelte heel nauwkeurig.**
 De GUI wordt geüpdate door een binding met ArduinoHandler's Status object. Als daarin een variabele wordt verandert wordt de GUI ook automatisch geüpdate. 
 
-**Commands** kunnen elke lengte zijn (op dit moment max 15 maar dat is instelbaar, en eindigen op ">" zodat de Arduino weet wanneer de laatste character it.
+**Commands** kunnen elke lengte zijn (op dit moment max 15 maar dat is instelbaar) en eindigen op ">" zodat de Arduino weet wanneer de laatste character is.
 
 **Arduino server responses** zijn altijd 4 characters en de laatste character is altijd "\n", want zo was de voorbeeld code...
 
