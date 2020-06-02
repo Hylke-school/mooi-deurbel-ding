@@ -1,0 +1,167 @@
+﻿using ProjectApp.Server;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Timers;
+using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+
+namespace ProjectApp.Views
+{
+    // Learn more about making custom code visible in the Xamarin.Forms previewer
+    // by visiting https://aka.ms/xamarinforms-previewer
+    [DesignTimeVisible(false)]
+    public partial class MainPage : ContentPage
+    {
+        ArduinoHandler arduinoHandler;
+
+        // Used to refresh the GUI
+        const double refreshIntervalMilliseconds = 1000;
+
+        public MainPage()
+        {
+            InitializeComponent();
+
+            arduinoHandler = new ArduinoHandler();
+
+            // Bind the text on screen to ArduinoHandler's status strings so it automatically updates when variables get changed
+            this.BindingContext = arduinoHandler.Status;
+        }
+
+        /// <summary>
+        /// Refresh the GUI. Mostly used to refresh the sensor value but it refreshes everything inside the ArduinoHandler.Status object. 
+        /// </summary>
+        private void RefreshGUI()
+        { 
+
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                arduinoHandler.RefreshStatus();
+
+                if (arduinoHandler.Status.ConnectionStatus == "Connected")
+                {
+                    ButtonConnect.IsEnabled = false;
+                    ButtonSetCriteria.IsEnabled = true;
+                    ButtonChangeState.IsEnabled = arduinoHandler.Status.CriteriaMode == "manual";
+                    ButtonToggleCriteria.IsEnabled = true;
+                }
+
+                else
+                {
+                    ButtonConnect.IsEnabled = true;
+                    ButtonSetCriteria.IsEnabled = false;
+                    ButtonChangeState.IsEnabled = false;
+                    ButtonToggleCriteria.IsEnabled = false;
+                }
+            });
+        }
+
+        /// <summary>
+        /// Event handler for when the "Change State" button is tapped.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChangeStateClicked(object sender, EventArgs e)
+        {
+            TextErrors.Text = "";
+
+            // Execute command 
+            if (arduinoHandler.TogglePinState() == "error")
+            {
+                TextErrors.Text = "Error: Could not send state change";
+            }
+
+            RefreshGUI();
+        }
+        
+        /// <summary>
+        /// Event handler for when the "Connect" button is tapped.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ConnectClicked(object sender, EventArgs e)
+        {
+            // Dont want to connect if already connected 
+            if (arduinoHandler.Status.ConnectionStatus == "Connected")
+                return;
+
+            string ipAddress = EntryIPAddress.Text;
+            string port = EntryPort.Text;
+
+            // Prevent user from pressing connect multiple times
+            ButtonConnect.IsEnabled = false;
+
+            // If succesfully connected, start the refresh GUI timer
+            if (arduinoHandler.StartConnection(ipAddress, port))
+            {
+                Timer timer = new Timer(refreshIntervalMilliseconds);
+                timer.Elapsed += (obj, args) => RefreshGUI();
+                timer.Start();
+            }
+
+            else
+            {
+                ButtonConnect.IsEnabled = true;
+            }
+
+            // Refresh GUI (in case it needs to display errors)
+            RefreshGUI();
+        }
+
+        /// <summary>
+        /// Event handler for when the "set criteria" button is tapped.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetCriteriaClicked(object sender, EventArgs e)
+        {
+            TextErrors.Text = "";
+
+            int sensorCriteria = Convert.ToInt32(SliderSensorCriteria.Value);
+
+            if (arduinoHandler.SetSensorCriteria(sensorCriteria) == "error")
+            {
+                TextErrors.Text = "Error: Could not set sensor criteria";
+            }
+
+            RefreshGUI();
+        }
+
+        /// <summary>
+        /// Event handler for when the "toggle criteria" button is tapped.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ToggleCriteriaClicked(object sender, EventArgs e)
+        {
+            string newMode = "";
+
+            // Toggle logic in GUI class, this is retarded but too late / too lazy to change now
+
+            if (arduinoHandler.Status.CriteriaMode == "auto")
+                newMode = "m";
+
+            else if (arduinoHandler.Status.CriteriaMode == "manual")
+                newMode = "a";
+
+            // Something weird went wrong
+            if (newMode == "")
+                return;
+
+            arduinoHandler.SetCriteriaMode(newMode);
+        }
+
+        /// <summary>
+        /// Event handler for when the Sensor Criteria Slider value gets changed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SliderSensorCriteriaChanged(object sender, ValueChangedEventArgs e)
+        {
+            int value = Convert.ToInt32(e.NewValue);
+            TextSensorCriteriaSlider.Text = Convert.ToString(value);
+        }
+    }
+}
