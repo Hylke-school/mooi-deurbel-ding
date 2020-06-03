@@ -18,3 +18,5 @@ Klasse diagram met nog wat uitleg:
 ![Image](https://i.imgur.com/aiRzMGL.png)
 
 ![Commands](https://i.imgur.com/3VS7aoq.png)
+
+![App](https://i.imgur.com/CKAtOt9.png)
