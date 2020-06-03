@@ -56,7 +56,7 @@
                 <Entry x:Name="EntryPort"></Entry>
             </StackLayout>
         </StackLayout>
-        <Button x:Name="ButtonConnect" Clicked="ConnectClicked" Text="CONNNECT" WidthRequest="150" HorizontalOptions="Center"></Button>
+        <Button x:Name="ButtonConnect" Clicked="ConnectClicked" Text="CONNECT" WidthRequest="150" HorizontalOptions="Center"></Button>
         
         <!-- Info and error texts -->
         <Label>Info:</Label>
