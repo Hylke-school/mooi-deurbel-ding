@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectApp.Views;
+using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -6,6 +7,7 @@ using System.Numerics;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Timers;
 
 namespace ProjectApp.Server
@@ -50,16 +52,17 @@ namespace ProjectApp.Server
                 throw new ArgumentException("Invalid Port");
             }
 
-            this.ipAddressServer = IPAddress.Parse(ipAddress);
+            ipAddressServer = IPAddress.Parse(ipAddress);
             this.port = Convert.ToInt32(port);
-            this.remoteEP = new IPEndPoint(this.ipAddressServer, this.port);
+            remoteEP = new IPEndPoint(ipAddressServer, this.port);
 
             try
             {
                 socket = new Socket(ipAddressServer.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 socket.Connect(remoteEP);
+                ExecuteCommand("c", false);
             }
-            catch (Exception e)
+            catch
             {
                 throw new ArgumentException("Could not connect to server");
             }
@@ -91,7 +94,7 @@ namespace ProjectApp.Server
         /// </summary>
         /// <param name="command">The command to send to the server/</param>
         /// <returns></returns>
-        public string ExecuteCommand(string command)
+        public string ExecuteCommand(string command, bool receiveData = true)
         {
 
             // Assuming response is always 4 bytes
@@ -104,26 +107,78 @@ namespace ProjectApp.Server
                 SendMessage(command);
                 try
                 {
-                    //while (socket.Available > 0)
-                    //{
-                    // Old code from docent voorbeeld, it actually broke stuff
-                    //}
-
-                    bytesReceived = socket.Receive(buffer);
-
-                    if (bytesReceived == 4)
+                    if (receiveData)
                     {
-                        // -1 to skip \n, Trim() to trim white spaces at the start since it's always 4 characters (though whitespaces later got removed so probably unnecessary now)
-                        result = Encoding.ASCII.GetString(buffer, 0, bytesReceived - 1).Trim();
+                        bytesReceived = socket.Receive(buffer);
+
+                        if (bytesReceived == 4)
+                        {
+                            // -1 to skip \n, Trim() to trim white spaces at the start since it's always 4 characters (though whitespaces later got removed so probably unnecessary now)
+                            result = Encoding.ASCII.GetString(buffer, 0, bytesReceived - 1).Trim();
+                        }
                     }
+
+                    result = "Success";
                 }
-                catch (Exception e)
+                catch
                 {
                     result = "error";
                 }
             }
 
             return result;
+        }
+
+        public bool SendSomething()
+        {
+            byte[] bytes = new byte[1024];
+
+            if (socket != null)
+            {
+                try
+                {
+                    string data = null;
+                    SocketAsyncEventArgs testEventArg = new SocketAsyncEventArgs();
+                    testEventArg.Completed += Help;
+
+                    while (true)
+                    {
+                        var something = socket.ReceiveAsync(new SocketAsyncEventArgs());
+
+                        if (!something)
+                            break;
+                        /*
+                        int bytesRec = socket.Receive(bytes);
+                        data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
+
+                        if (data.IndexOf("BEL") > -1)
+                            break;
+
+                        */
+                    }
+
+                    ExecuteCommand("r", false);
+                    //CloseConnection();
+
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+
+            return false;
+        }
+
+        private void Help(object sender, SocketAsyncEventArgs e)
+        {
+            int i = 0;
+
+            i++;
+
+            Console.Write(i);
+            //throw new NotImplementedException();
         }
 
         // ===================================================

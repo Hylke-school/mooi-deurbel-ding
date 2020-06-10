@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace ProjectApp.Server
@@ -45,11 +46,10 @@ namespace ProjectApp.Server
             }
 
             // Something went wrong (like invalid IP or port)
-            catch (ArgumentException e)
+            catch
             {
                 return false;
             }
-
 
             return connection.IsConnected();
         }
@@ -68,6 +68,14 @@ namespace ProjectApp.Server
         public bool IsConnected()
         {
             return connection.IsConnected();
+        }
+
+        public bool SendSomething()
+        {
+            var t = Task.Run(() => connection.SendSomething());
+            t.Wait();
+
+            return t.Result;
         }
 
         /* =========================================================================

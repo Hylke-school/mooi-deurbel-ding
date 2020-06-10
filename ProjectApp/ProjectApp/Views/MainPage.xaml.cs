@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Timers;
 using Xamarin.Forms;
@@ -82,6 +83,31 @@ namespace ProjectApp.Views
 
             // Refresh GUI (in case it needs to display errors)
             RefreshGUI();
+        }
+
+        int counter = 0;
+
+        private void TestClicked(object sender, EventArgs e)
+        {
+            TextErrors.Text = "-";
+
+            if (!arduinoHandler.IsConnected())
+                return;
+
+            if (arduinoHandler.SendSomething())
+            {
+                TextErrors.Text = "Ding Dong";
+                counter++;
+            }
+            else
+            {
+                TextErrors.Text = "No Ding Dong";
+            }
+        }
+        
+        private void SecondClicked(object sender, EventArgs e)
+        {
+            ButtonTest.BackgroundColor = ButtonTest.BackgroundColor == Color.Green ? Color.Aqua : Color.Green;
         }
     }
 }
