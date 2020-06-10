@@ -25,57 +25,31 @@ namespace ProjectApp.Views
             InitializeComponent();
 
             arduinoHandler = new ArduinoHandler();
-
-            // Bind the text on screen to ArduinoHandler's status strings so it automatically updates when variables get changed
-            this.BindingContext = arduinoHandler.Status;
         }
 
         /// <summary>
         /// Refresh the GUI. Mostly used to refresh the sensor value but it refreshes everything inside the ArduinoHandler.Status object. 
         /// </summary>
         private void RefreshGUI()
-        { 
-
+        {
             Device.BeginInvokeOnMainThread(() =>
             {
-                arduinoHandler.RefreshStatus();
 
-                if (arduinoHandler.Status.ConnectionStatus == "Connected")
+                if (arduinoHandler.IsConnected())
                 {
+                    // DoorStatus.Text = arduinoHandler.GetDoorStatus(); 
+                    TextSensorValue.Text = arduinoHandler.GetSensorValue();
                     ButtonConnect.IsEnabled = false;
-                    ButtonSetCriteria.IsEnabled = true;
-                    ButtonChangeState.IsEnabled = arduinoHandler.Status.CriteriaMode == "manual";
-                    ButtonToggleCriteria.IsEnabled = true;
                 }
 
                 else
                 {
                     ButtonConnect.IsEnabled = true;
-                    ButtonSetCriteria.IsEnabled = false;
-                    ButtonChangeState.IsEnabled = false;
-                    ButtonToggleCriteria.IsEnabled = false;
                 }
+
             });
         }
 
-        /// <summary>
-        /// Event handler for when the "Change State" button is tapped.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ChangeStateClicked(object sender, EventArgs e)
-        {
-            TextErrors.Text = "";
-
-            // Execute command 
-            if (arduinoHandler.TogglePinState() == "error")
-            {
-                TextErrors.Text = "Error: Could not send state change";
-            }
-
-            RefreshGUI();
-        }
-        
         /// <summary>
         /// Event handler for when the "Connect" button is tapped.
         /// </summary>
@@ -84,7 +58,7 @@ namespace ProjectApp.Views
         private void ConnectClicked(object sender, EventArgs e)
         {
             // Dont want to connect if already connected 
-            if (arduinoHandler.Status.ConnectionStatus == "Connected")
+            if (arduinoHandler.IsConnected())
                 return;
 
             string ipAddress = EntryIPAddress.Text;
@@ -104,64 +78,11 @@ namespace ProjectApp.Views
             else
             {
                 ButtonConnect.IsEnabled = true;
+                TextErrors.Text = "Looks like we had a problem connecting";
             }
 
             // Refresh GUI (in case it needs to display errors)
             RefreshGUI();
-        }
-
-        /// <summary>
-        /// Event handler for when the "set criteria" button is tapped.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SetCriteriaClicked(object sender, EventArgs e)
-        {
-            TextErrors.Text = "";
-
-            int sensorCriteria = Convert.ToInt32(SliderSensorCriteria.Value);
-
-            if (arduinoHandler.SetSensorCriteria(sensorCriteria) == "error")
-            {
-                TextErrors.Text = "Error: Could not set sensor criteria";
-            }
-
-            RefreshGUI();
-        }
-
-        /// <summary>
-        /// Event handler for when the "toggle criteria" button is tapped.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ToggleCriteriaClicked(object sender, EventArgs e)
-        {
-            string newMode = "";
-
-            // Toggle logic in GUI class, this is retarded but too late / too lazy to change now
-
-            if (arduinoHandler.Status.CriteriaMode == "auto")
-                newMode = "m";
-
-            else if (arduinoHandler.Status.CriteriaMode == "manual")
-                newMode = "a";
-
-            // Something weird went wrong
-            if (newMode == "")
-                return;
-
-            arduinoHandler.SetCriteriaMode(newMode);
-        }
-
-        /// <summary>
-        /// Event handler for when the Sensor Criteria Slider value gets changed.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void SliderSensorCriteriaChanged(object sender, ValueChangedEventArgs e)
-        {
-            int value = Convert.ToInt32(e.NewValue);
-            TextSensorCriteriaSlider.Text = Convert.ToString(value);
         }
     }
 }

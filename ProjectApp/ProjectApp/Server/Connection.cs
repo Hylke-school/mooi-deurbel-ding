@@ -12,11 +12,6 @@ namespace ProjectApp.Server
 {
     class Connection
     {
-        // ========== Public variables ========== 
-        public bool Connected { get; private set; }
-
-
-        // ========== Private variables ========== 
 
         private IPAddress ipAddressServer;
         private int port;
@@ -29,7 +24,6 @@ namespace ProjectApp.Server
         /// </summary>
         public Connection()
         {
-            Connected = false;
             socket = null;
         }
 
@@ -64,7 +58,6 @@ namespace ProjectApp.Server
             {
                 socket = new Socket(ipAddressServer.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 socket.Connect(remoteEP);
-                Connected = socket.Connected;
             }
             catch (Exception e)
             {
@@ -79,7 +72,18 @@ namespace ProjectApp.Server
         {
             socket.Shutdown(SocketShutdown.Both);
             socket.Close();
-            Connected = false;
+        }
+
+        /// <summary>
+        /// Returns whether the socket is connected or not. 
+        /// </summary>
+        /// <returns></returns>
+        public bool IsConnected()
+        {
+            if (socket == null)
+                return false;
+
+            else return socket.Connected;
         }
 
         /// <summary>
