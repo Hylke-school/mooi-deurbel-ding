@@ -38,7 +38,6 @@ namespace ProjectApp.Views
                 if (arduinoHandler.IsConnected())
                 {
                     // DoorStatus.Text = arduinoHandler.GetDoorStatus(); 
-                    TextSensorValue.Text = arduinoHandler.GetSensorValue();
                     ButtonConnect.IsEnabled = false;
                 }
 

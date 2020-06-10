@@ -41,7 +41,7 @@ namespace ProjectApp.Server
         /// <returns></returns>
         public bool StartConnection(string ipAddress, string port)
         {
-            if (connection.Connected == true)
+            if (connection.IsConnected() == true)
                 return false;
 
             // Try to start connection
@@ -68,7 +68,7 @@ namespace ProjectApp.Server
                 Status.InfoText = e.Message;
             }
 
-            Status.ConnectionStatus = connection.Connected ? "Connected" : "Not connected";
+            Status.ConnectionStatus = connection.IsConnected() ? "Connected" : "Not connected";
 
             return Status.ConnectionStatus == "Connected";
         }
@@ -79,9 +79,9 @@ namespace ProjectApp.Server
         public void RefreshStatus()
         {
             // Set connected 
-            Status.ConnectionStatus = connection.Connected ? "Connected" : "Not connected";
+            Status.ConnectionStatus = connection.IsConnected() ? "Connected" : "Not connected";
 
-            if (connection.Connected)
+            if (connection.IsConnected())
             {
                 // Set sensor value (and info text)
                 string sensorValue = GetSensorValue();
