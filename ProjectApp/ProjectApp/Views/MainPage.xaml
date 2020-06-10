@@ -29,6 +29,8 @@
         <!-- This one can be used by MainPage.xaml.cs. The previous label is bound to the ArduinoStatus object. -->
         <Label x:Name="TextErrors"></Label>
 
+        <StackLayout x:Name="messageDisplay"></StackLayout>
+
     </StackLayout>
 
 </ContentPage>

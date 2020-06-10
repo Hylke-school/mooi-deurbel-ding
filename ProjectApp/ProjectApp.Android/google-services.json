@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "584975104909",
+    "firebase_url": "https://mooi-deurbel-ding.firebaseio.com",
+    "project_id": "mooi-deurbel-ding",
+    "storage_bucket": "mooi-deurbel-ding.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:584975104909:android:15d1147b968a7091f51bc4",
+        "android_client_info": {
+          "package_name": "com.mooideurbelding.deurbelapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "584975104909-9l44c2g0grcuuuiono8ie3f7vimapo6v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIyOQIN-DT3wjvTW5B_O68itiIckvsqWE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "584975104909-9l44c2g0grcuuuiono8ie3f7vimapo6v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
