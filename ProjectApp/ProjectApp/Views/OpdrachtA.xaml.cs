@@ -13,7 +13,7 @@ namespace ProjectApp.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class OpdrachtA : ContentPage
     {
-        ArduinoHandler arduinoHandler;
+        ArduinoHandlerOpdrachtA arduinoHandler;
 
         // Used to refresh the GUI
         const double refreshIntervalMilliseconds = 1000;
@@ -21,7 +21,7 @@ namespace ProjectApp.Views
         public OpdrachtA()
         {
             InitializeComponent();
-            arduinoHandler = new ArduinoHandler();
+            arduinoHandler = new ArduinoHandlerOpdrachtA();
 
             // Bind the text on screen to ArduinoHandler's status strings so it automatically updates when variables get changed
             //this.BindingContext = arduinoHandler.Status;
@@ -36,7 +36,7 @@ namespace ProjectApp.Views
             Device.BeginInvokeOnMainThread(() =>
             {
 
-                if (arduinoHandler.IsConnected())
+                if (arduinoHandler.Status.ConnectionStatus == "Connected")
                 {
                     arduinoHandler.RefreshStatus();
                     TextSensorValue.Text = arduinoHandler.GetSensorValue();
@@ -65,7 +65,7 @@ namespace ProjectApp.Views
         private void ConnectClicked(object sender, EventArgs e)
         {
             // Dont want to connect if already connected 
-            if (arduinoHandler.IsConnected())
+            if (arduinoHandler.Status.ConnectionStatus == "Connected")
                 return;
 
             string ipAddress = EntryIPAddress.Text;
