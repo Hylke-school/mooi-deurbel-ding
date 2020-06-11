@@ -72,10 +72,9 @@ namespace ProjectApp.Server
 
         public bool SendSomething()
         {
-            var t = Task.Run(() => connection.SendSomething());
-            t.Wait();
+            return connection.SendSomething();
 
-            return t.Result;
+            //return t.Result;
         }
 
         /* =========================================================================

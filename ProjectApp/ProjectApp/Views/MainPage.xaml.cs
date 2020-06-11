@@ -74,7 +74,6 @@ namespace ProjectApp.Views
                 timer.Elapsed += (obj, args) => RefreshGUI();
                 timer.Start();
             }
-
             else
             {
                 ButtonConnect.IsEnabled = true;
@@ -101,7 +100,7 @@ namespace ProjectApp.Views
             }
             else
             {
-                TextErrors.Text = "No Ding Dong";
+                TextErrors.Text = Connection.ErrorMessage;
             }
         }
         

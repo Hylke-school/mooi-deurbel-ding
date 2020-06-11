@@ -21,6 +21,9 @@ namespace ProjectApp.Server
 
         private Socket socket;
 
+
+        public static string ErrorMessage = "";
+
         /// <summary>
         /// Returns a Connection object. You still have to manually invoke StartConnection() to establish a connection. 
         /// </summary>
@@ -60,7 +63,7 @@ namespace ProjectApp.Server
             {
                 socket = new Socket(ipAddressServer.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 socket.Connect(remoteEP);
-                ExecuteCommand("c", false);
+                ExecuteCommand("c");
             }
             catch
             {
@@ -117,8 +120,10 @@ namespace ProjectApp.Server
                             result = Encoding.ASCII.GetString(buffer, 0, bytesReceived - 1).Trim();
                         }
                     }
-
-                    result = "Success";
+                    else
+                    {
+                        result = "Success";
+                    }
                 }
                 catch
                 {
@@ -129,41 +134,55 @@ namespace ProjectApp.Server
             return result;
         }
 
-        public bool SendSomething()
+
+        
+        /*public async Task<bool> */ public bool SendSomething()
         {
             byte[] bytes = new byte[1024];
+            AsyncCallback test = new AsyncCallback(ProcessClientInformation);
+
+            object secondTest = new object();
 
             if (socket != null)
             {
                 try
                 {
-                    string data = null;
-                    SocketAsyncEventArgs testEventArg = new SocketAsyncEventArgs();
-                    testEventArg.Completed += Help;
 
-                    while (true)
+                    socket.BeginReceive(bytes, 0, 0, SocketFlags.None, test, secondTest);
+
+                    //SocketAsyncEventArgs asyncEventArgs = new SocketAsyncEventArgs();
+
+                    //asyncEventArgs.SetBuffer(bytes, 0, 0);
+                    //asyncEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(Help);
+
+                    //string data = null;
+                    //bool isBusy = true;
+
+                    //var test = socket.ReceiveAsync(asyncEventArgs);
+
+                    /*		test	(null)	System.AsyncCallback
+
+
+                    while (isBusy)
                     {
-                        var something = socket.ReceiveAsync(new SocketAsyncEventArgs());
-
-                        if (!something)
-                            break;
-                        /*
-                        int bytesRec = socket.Receive(bytes);
+                        isBusy = socket.ReceiveAsync(asyncEventArgs);
+                        
                         data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
 
                         if (data.IndexOf("BEL") > -1)
                             break;
-
-                        */
+                        
                     }
+                    */
 
-                    ExecuteCommand("r", false);
+                    
                     //CloseConnection();
 
                     return true;
                 }
-                catch
+                catch (Exception e)
                 {
+                    ErrorMessage = e.ToString();
                     return false;
                 }
             }
@@ -171,14 +190,15 @@ namespace ProjectApp.Server
             return false;
         }
 
-        private void Help(object sender, SocketAsyncEventArgs e)
+        void ProcessClientInformation(IAsyncResult result)
         {
-            int i = 0;
+            int bytesRec = socket.EndReceive(result);
 
-            i++;
+            byte[] bytes = new byte[1024];
+            var data = Encoding.ASCII.GetString(bytes, 0, bytesRec);
 
-            Console.Write(i);
-            //throw new NotImplementedException();
+            var test = data.ToString();
+            ExecuteCommand("r", false);
         }
 
         // ===================================================
