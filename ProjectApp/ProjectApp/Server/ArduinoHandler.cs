@@ -70,11 +70,14 @@ namespace ProjectApp.Server
             return connection.IsConnected();
         }
 
-        public bool SendSomething()
+        /// <summary>
+        /// Call the CheckForDoorBell function in the connector
+        /// </summary>
+        /// <returns> wheter or not the bell was pressed</returns>
+        public bool CheckForDoorBell()
         {
-            return connection.SendSomething();
-
-            //return t.Result;
+            connection.CheckForDoorBell(out bool success);
+            return success;
         }
 
         /* =========================================================================

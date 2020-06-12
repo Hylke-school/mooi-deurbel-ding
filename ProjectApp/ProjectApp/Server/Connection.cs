@@ -20,9 +20,10 @@ namespace ProjectApp.Server
         private IPEndPoint remoteEP;
 
         private Socket socket;
+        public string data = null;
 
 
-        public static string ErrorMessage = "";
+        public static int counter = 0;
 
         /// <summary>
         /// Returns a Connection object. You still have to manually invoke StartConnection() to establish a connection. 
@@ -45,6 +46,9 @@ namespace ProjectApp.Server
                 return;
             }
 
+            ipAddress = "192.168.2.23";
+            port = "3300";
+
             if (CheckValidIpAddress(ipAddress) == false)
             {
                 throw new ArgumentException("Invalid IP Address");
@@ -63,7 +67,7 @@ namespace ProjectApp.Server
             {
                 socket = new Socket(ipAddressServer.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                 socket.Connect(remoteEP);
-                ExecuteCommand("c");
+                ExecuteCommand("c", false);
             }
             catch
             {
@@ -134,71 +138,42 @@ namespace ProjectApp.Server
             return result;
         }
 
-
-        
-        /*public async Task<bool> */ public bool SendSomething()
+        /// <summary>
+        /// Listens if the arduino has send a message, if the message is BEL, tell the arduino that the message is received.
+        /// </summary>
+        /// <param name="success">bool, if the message was received true otherwise false</param>
+        public void CheckForDoorBell(out bool success)
         {
             byte[] bytes = new byte[1024];
-            AsyncCallback test = new AsyncCallback(ProcessClientInformation);
-
-            object secondTest = new object();
+            success = false;
 
             if (socket != null)
             {
+                socket.ReceiveTimeout = 1;
+
                 try
                 {
+                    data = null;
 
-                    socket.BeginReceive(bytes, 0, 0, SocketFlags.None, test, secondTest);
+                    int bytesRec = socket.Receive(bytes);
 
-                    //SocketAsyncEventArgs asyncEventArgs = new SocketAsyncEventArgs();
-
-                    //asyncEventArgs.SetBuffer(bytes, 0, 0);
-                    //asyncEventArgs.Completed += new EventHandler<SocketAsyncEventArgs>(Help);
-
-                    //string data = null;
-                    //bool isBusy = true;
-
-                    //var test = socket.ReceiveAsync(asyncEventArgs);
-
-                    /*		test	(null)	System.AsyncCallback
-
-
-                    while (isBusy)
+                    if (bytesRec > 0)
                     {
-                        isBusy = socket.ReceiveAsync(asyncEventArgs);
-                        
                         data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
 
                         if (data.IndexOf("BEL") > -1)
-                            break;
-                        
+                        {
+                            counter++;
+                            ExecuteCommand("r", false);
+                            success = true;
+                        }
                     }
-                    */
-
-                    
-                    //CloseConnection();
-
-                    return true;
                 }
-                catch (Exception e)
+                catch 
                 {
-                    ErrorMessage = e.ToString();
-                    return false;
+                    throw new ArgumentException("Could not check for the doorbell");
                 }
             }
-
-            return false;
-        }
-
-        void ProcessClientInformation(IAsyncResult result)
-        {
-            int bytesRec = socket.EndReceive(result);
-
-            byte[] bytes = new byte[1024];
-            var data = Encoding.ASCII.GetString(bytes, 0, bytesRec);
-
-            var test = data.ToString();
-            ExecuteCommand("r", false);
         }
 
         // ===================================================

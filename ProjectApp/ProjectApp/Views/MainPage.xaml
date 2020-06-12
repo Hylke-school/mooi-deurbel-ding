@@ -22,8 +22,6 @@
             </StackLayout>
         </StackLayout>
         <Button x:Name="ButtonConnect" Clicked="ConnectClicked" Text="CONNECT" WidthRequest="150" HorizontalOptions="Center"/>
-        <Button x:Name="ButtonTest" Clicked="TestClicked" Text="TEST" WidthRequest="150" HorizontalOptions="Center"/>
-        <Button x:Name="SecondTest" Clicked="SecondClicked" Text="Temp" WidthRequest="150" HorizontalOptions="Center"/>
 
         <!-- Info and error texts -->
         <Label>Info:</Label>

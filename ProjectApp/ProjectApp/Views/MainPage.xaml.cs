@@ -20,6 +20,7 @@ namespace ProjectApp.Views
 
         // Used to refresh the GUI
         const double refreshIntervalMilliseconds = 1000;
+        bool waitForResponse = false;
 
         public MainPage()
         {
@@ -35,13 +36,19 @@ namespace ProjectApp.Views
         {
             Device.BeginInvokeOnMainThread(() =>
             {
+                if (waitForResponse)
+                {
+                    if (arduinoHandler.CheckForDoorBell())
+                    {
+                        TextErrors.Text = Connection.counter.ToString();
+                    }
+                }
 
                 if (arduinoHandler.IsConnected())
                 {
                     // DoorStatus.Text = arduinoHandler.GetDoorStatus(); 
                     ButtonConnect.IsEnabled = false;
                 }
-
                 else
                 {
                     ButtonConnect.IsEnabled = true;
@@ -80,33 +87,12 @@ namespace ProjectApp.Views
                 TextErrors.Text = "Looks like we had a problem connecting";
             }
 
+            //Start with checking for the doorbell
+            if (arduinoHandler.IsConnected())
+                waitForResponse = true;
+
             // Refresh GUI (in case it needs to display errors)
             RefreshGUI();
-        }
-
-        int counter = 0;
-
-        private void TestClicked(object sender, EventArgs e)
-        {
-            TextErrors.Text = "-";
-
-            if (!arduinoHandler.IsConnected())
-                return;
-
-            if (arduinoHandler.SendSomething())
-            {
-                TextErrors.Text = "Ding Dong";
-                counter++;
-            }
-            else
-            {
-                TextErrors.Text = Connection.ErrorMessage;
-            }
-        }
-        
-        private void SecondClicked(object sender, EventArgs e)
-        {
-            ButtonTest.BackgroundColor = ButtonTest.BackgroundColor == Color.Green ? Color.Aqua : Color.Green;
         }
     }
 }
