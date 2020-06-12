@@ -165,9 +165,10 @@ namespace ProjectApp.Server
                         }
                     }
                 }
-                catch 
+                catch (SocketException se)
                 {
-                    throw new ArgumentException("Could not check for the doorbell");
+                    if (se.SocketErrorCode != SocketError.WouldBlock)
+                        throw new ArgumentException("Could not check for the doorbell");
                 }
             }
 
