@@ -31,7 +31,7 @@ namespace ProjectApp.Database
         {
             List<Date> dates = db.Table<Date>().ToList();
 
-            // Converstion from List<Date> to List<string>
+            // Conversion from List<Date> to List<string>
             return dates.ConvertAll(dateObject => dateObject.date);
         }
 
