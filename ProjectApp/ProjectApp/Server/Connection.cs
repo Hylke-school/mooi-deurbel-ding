@@ -46,9 +46,6 @@ namespace ProjectApp.Server
                 return;
             }
 
-            ipAddress = "192.168.2.23";
-            port = "3300";
-
             if (CheckValidIpAddress(ipAddress) == false)
             {
                 throw new ArgumentException("Invalid IP Address");
