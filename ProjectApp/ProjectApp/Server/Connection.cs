@@ -139,10 +139,9 @@ namespace ProjectApp.Server
         /// Listens if the arduino has send a message, if the message is BEL, tell the arduino that the message is received.
         /// </summary>
         /// <param name="success">bool, if the message was received true otherwise false</param>
-        public void CheckForDoorBell(out bool success)
+        public bool CheckForDoorBell()
         {
             byte[] bytes = new byte[1024];
-            success = false;
 
             if (socket != null)
             {
@@ -162,7 +161,7 @@ namespace ProjectApp.Server
                         {
                             counter++;
                             ExecuteCommand("r", false);
-                            success = true;
+                            return true;
                         }
                     }
                 }
@@ -171,6 +170,8 @@ namespace ProjectApp.Server
                     throw new ArgumentException("Could not check for the doorbell");
                 }
             }
+
+            return false;
         }
 
         // ===================================================

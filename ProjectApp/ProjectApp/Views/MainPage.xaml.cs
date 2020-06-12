@@ -37,18 +37,18 @@ namespace ProjectApp.Views
         {
             Device.BeginInvokeOnMainThread(() =>
             {
-                if (waitForResponse)
-                {
-                    if (arduinoHandler.CheckForDoorBell())
-                    {
-                        TextErrors.Text = Connection.counter.ToString();
-                    }
-                }
-
                 if (arduinoHandler.IsConnected())
                 {
                     // DoorStatus.Text = arduinoHandler.GetDoorStatus(); 
                     ButtonConnect.IsEnabled = false;
+
+                    if (waitForResponse)
+                    {
+                        if (arduinoHandler.CheckForDoorBell())
+                        {
+                            TextErrors.Text = Connection.counter.ToString();
+                        }
+                    }
                 }
                 else
                 {

@@ -73,11 +73,10 @@ namespace ProjectApp.Server
         /// <summary>
         /// Call the CheckForDoorBell function in the connector
         /// </summary>
-        /// <returns> wheter or not the bell was pressed</returns>
+        /// <returns> whether or not the bell was pressed</returns>
         public bool CheckForDoorBell()
         {
-            connection.CheckForDoorBell(out bool success);
-            return success;
+            return connection.CheckForDoorBell();
         }
 
         /* =========================================================================
