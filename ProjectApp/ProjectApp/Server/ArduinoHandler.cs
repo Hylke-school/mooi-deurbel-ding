@@ -11,14 +11,27 @@ using Xamarin.Forms;
 
 namespace ProjectApp.Server
 {
-    class ArduinoHandler
+    sealed class ArduinoHandler
     {
+        // Singleton instance
+        private static readonly ArduinoHandler HANDLER = new ArduinoHandler();
+
+        /// <summary>
+        /// Returns the static ArduinoHandler instance.
+        /// </summary>
+        public static ArduinoHandler Handler
+        {
+            get
+            {
+                return HANDLER;
+            }
+        }
+
         /// <summary>ArduinoStatus object that can be used as a DataBinding object for the user interface to automatically update and display data.</summary>
         private Connection connection;
-
         
         /// <summary>Returns an ArduinoHandler object. Invoke StartConnection() to start a connection with the server.</summary>
-        public ArduinoHandler()
+        private ArduinoHandler()
         {
             connection = new Connection();
         }

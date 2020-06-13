@@ -17,7 +17,7 @@ namespace ProjectApp.Views
     [DesignTimeVisible(false)]
     public partial class MainPage : ContentPage
     {
-        ArduinoHandler arduinoHandler;
+        ArduinoHandler arduinoHandler = ArduinoHandler.Handler;
 
         // Used to refresh the GUI
         const double refreshIntervalMilliseconds = 1000;
@@ -26,12 +26,10 @@ namespace ProjectApp.Views
         public MainPage()
         {
             InitializeComponent();
-
-            arduinoHandler = new ArduinoHandler();
         }
 
         /// <summary>
-        /// Refresh the GUI. Mostly used to refresh the sensor value but it refreshes everything inside the ArduinoHandler.Status object. 
+        ///  Use this method for things that need to be done to refresh the GUI everytime the timer goes off. 
         /// </summary>
         private void RefreshGUI()
         {
