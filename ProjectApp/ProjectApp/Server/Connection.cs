@@ -15,6 +15,8 @@ namespace ProjectApp.Server
     class Connection
     {
 
+        private const int connectTimeoutMilliseconds = 10000; // 10 seconds
+
         private IPAddress ipAddressServer;
         private int port;
         private IPEndPoint remoteEP;
@@ -63,11 +65,27 @@ namespace ProjectApp.Server
             try
             {
                 socket = new Socket(ipAddressServer.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-                socket.Connect(remoteEP);
+
+                socket.ConnectAsync(remoteEP);
+
+                // Below code copied from https://stackoverflow.com/questions/456891/how-do-i-set-the-time-out-of-a-socket-connect-call
+                // This reduces the timeout from a minute to connectTimeoutMilliseconds
+
+                IAsyncResult asr = socket.BeginConnect(remoteEP, null, null);
+                bool result = asr.AsyncWaitHandle.WaitOne(connectTimeoutMilliseconds, true);
+
+                if (result == false)
+                {
+                    socket = null;
+                    throw new ArgumentException("Could not connect to server");   
+                }
+
                 ExecuteCommand("c", false);
             }
+
             catch
             {
+                socket = null;
                 throw new ArgumentException("Could not connect to server");
             }
         }
