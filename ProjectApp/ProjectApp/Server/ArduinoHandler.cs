@@ -76,7 +76,14 @@ namespace ProjectApp.Server
         /// <returns> whether or not the bell was pressed</returns>
         public bool CheckForDoorBell()
         {
-            return connection.CheckForDoorBell();
+            try
+            {
+                return connection.CheckForDoorBell();
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         /* =========================================================================
