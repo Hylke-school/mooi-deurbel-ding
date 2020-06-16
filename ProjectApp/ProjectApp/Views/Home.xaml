@@ -8,9 +8,10 @@
              Title="ArduinoApp">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Button x:Name="ButtonOpen" Text="Open box" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150" Margin="0, 25, 0, 0"></Button>
+            <Button x:Name="ButtonClose" Text="Close box" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150"></Button>
+            <Label Text="Status" FontSize="Large" Margin="100, 25, 0, 0"></Label>
+            <Label Text="placeholdertext" Margin="100, 5, 0, 0"></Label>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
