@@ -117,26 +117,47 @@ namespace ProjectApp.Server
          * Format: Method - Command - Expected Arduino response (NOT method return value)
          * 
          * Example:
-         * GetSensorValue()     - "s" - Value
-         * 
+         * ClosePackageBox()    - "l"
+         * OpenPackageBox()     - "o"
+         * BoxStatus()          - "s" - CLS (box is locked) or OPN (box is unlocked)
          */
 
 
         // Example:
 
         /// <summary>
-        /// Returns the value from the sensor, or "error" if it could not be obtained.
+        /// Sends a message to the arduino to close and lock the box
         /// </summary>
-        /// <returns></returns>
-        public string GetSensorValue()
+        public void ClosePackageBox()
         {
-            // Command = "s" (for Sensor)
-            // Response = a number, or "error"
-
-            // Returns sensor value, or "error" if it could not be retrieved
-            return connection.ExecuteCommand("s");
+            connection.ExecuteCommand("l", false);
         }
 
+        /// <summary>
+        /// Sends a message to the arduino to open/unlock the box
+        /// </summary>
+        public void OpenPackageBox()
+        {
+            connection.ExecuteCommand("o", false);
+        }
 
+        /// <summary>
+        /// Gets the status of the box
+        /// </summary>
+        /// <returns>   Closed  : if the box is closed and locked
+        ///             Open    : if the box is unlocked
+        ///             Error   : if the response is unexpected
+        /// </returns>
+        public string BoxStatus()
+        {
+            string response = connection.ExecuteCommand("s");
+
+            if (response == "CLS")
+                return "Closed";
+            else if (response == "OPN")
+                return "Open";
+            else
+                return "BoxStatus Error";
+        }
     }
 }
