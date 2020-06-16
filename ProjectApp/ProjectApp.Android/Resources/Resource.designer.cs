@@ -26,6 +26,7 @@ namespace ProjectApp.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::Plugin.LocalNotifications.Resource.Drawable.plugin_lc_smallicon = global::ProjectApp.Droid.Resource.Drawable.plugin_lc_smallicon;
 			global::Plugin.PushNotification.Resource.Attribute.alpha = global::ProjectApp.Droid.Resource.Attribute.alpha;
 			global::Plugin.PushNotification.Resource.Attribute.buttonSize = global::ProjectApp.Droid.Resource.Attribute.buttonSize;
 			global::Plugin.PushNotification.Resource.Attribute.circleCrop = global::ProjectApp.Droid.Resource.Attribute.circleCrop;
@@ -8742,10 +8743,13 @@ namespace ProjectApp.Droid
 			public const int notify_panel_notification_icon_bg = 2131165321;
 			
 			// aapt resource value: 0x7F07008A
-			public const int tooltip_frame_dark = 2131165322;
+			public const int plugin_lc_smallicon = 2131165322;
 			
 			// aapt resource value: 0x7F07008B
-			public const int tooltip_frame_light = 2131165323;
+			public const int tooltip_frame_dark = 2131165323;
+			
+			// aapt resource value: 0x7F07008C
+			public const int tooltip_frame_light = 2131165324;
 			
 			static Drawable()
 			{

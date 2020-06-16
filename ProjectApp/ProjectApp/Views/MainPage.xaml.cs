@@ -1,4 +1,5 @@
-﻿using ProjectApp.Server;
+﻿using Plugin.LocalNotifications;
+using ProjectApp.Server;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -102,6 +103,11 @@ namespace ProjectApp.Views
                     messageDisplay.Children.Add(label);
                 }
             });
+        }
+
+        private void ShowNotification_Pressed(object sender, EventArgs e)
+        {
+            CrossLocalNotifications.Current.Show("Notification", "button has been pressed");
         }
     }
 }

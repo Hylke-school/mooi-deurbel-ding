@@ -10,6 +10,8 @@ using Android.Content;
 using ProjectApp.Views;
 using Android.Gms.Common;
 using Android.Util;
+using Plugin.LocalNotifications;
+using Firebase.Messaging;
 
 namespace ProjectApp.Droid
 {
@@ -32,6 +34,8 @@ namespace ProjectApp.Droid
             }
 
             CreateNotificationChannel();
+            FirebaseMessaging.Instance.SubscribeToTopic("notifications");
+            Log.Debug("?","Subscribed to remote notifications");
         }
         protected override void OnNewIntent(Intent intent)
         {
