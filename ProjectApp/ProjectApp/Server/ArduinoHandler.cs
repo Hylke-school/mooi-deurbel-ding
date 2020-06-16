@@ -117,8 +117,8 @@ namespace ProjectApp.Server
          * Format: Method - Command - Expected Arduino response (NOT method return value)
          * 
          * Example:
-         * ClosePackageBox()    - "l"
-         * OpenPackageBox()     - "o"
+         * LockPackageBox()     - "l"
+         * UnlockPackageBox()   - "u"
          * BoxStatus()          - "s" - CLS (box is locked) or OPN (box is unlocked)
          */
 
@@ -128,7 +128,7 @@ namespace ProjectApp.Server
         /// <summary>
         /// Sends a message to the arduino to close and lock the box
         /// </summary>
-        public void ClosePackageBox()
+        public void LockPackageBox()
         {
             connection.ExecuteCommand("l", false);
         }
@@ -136,9 +136,9 @@ namespace ProjectApp.Server
         /// <summary>
         /// Sends a message to the arduino to open/unlock the box
         /// </summary>
-        public void OpenPackageBox()
+        public void UnlockPackageBox()
         {
-            connection.ExecuteCommand("o", false);
+            connection.ExecuteCommand("u", false);
         }
 
         /// <summary>
