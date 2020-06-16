@@ -1,34 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
-             x:Class="ProjectApp.Views.MainPage"
-             Title="Domotica App">
+             xmlns:views="clr-namespace:ProjectApp.Views"
+             x:Class="ProjectApp.Views.MainPage">
 
-    <StackLayout Margin="20" Orientation="Vertical" HorizontalOptions="Center">
+    <TabbedPage.Children>
+        <NavigationPage Title="Home">
+            <x:Arguments>
+                <views:Home/>
+            </x:Arguments>
+        </NavigationPage>
 
+        <NavigationPage Title="History">
+            <x:Arguments>
+                <views:History/>
+            </x:Arguments>
+        </NavigationPage>
 
-        <!-- Enter IP and Port -->
-        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-            <StackLayout Orientation="Vertical" WidthRequest="150">
-                <Label HorizontalOptions="Center">IP Address:</Label>
-                <Entry x:Name="EntryIPAddress"></Entry>
-            </StackLayout>
-            <StackLayout Orientation="Vertical" WidthRequest="150">
-                <Label HorizontalOptions="Center">Port:</Label>
-                <Entry x:Name="EntryPort"></Entry>
-            </StackLayout>
-        </StackLayout>
-        <Button x:Name="ButtonConnect" Clicked="ConnectClicked" Text="CONNECT" WidthRequest="150" HorizontalOptions="Center"/>
+        <NavigationPage Title="Settings">
+            <x:Arguments>
+                <views:Settings/>
+            </x:Arguments>
+        </NavigationPage>
+    </TabbedPage.Children>
 
-        <!-- Info and error texts -->
-        <Label>Info:</Label>
-        
-        <!-- This one can be used by MainPage.xaml.cs. The previous label is bound to the ArduinoStatus object. -->
-        <Label x:Name="TextErrors"></Label>
-
-    </StackLayout>
-
-</ContentPage>
+</TabbedPage>
