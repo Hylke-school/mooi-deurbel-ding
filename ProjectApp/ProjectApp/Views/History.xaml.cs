@@ -17,12 +17,15 @@ namespace ProjectApp.Views
     [DesignTimeVisible(false)]
     public partial class History : ContentPage
     {
-        List<string> dates;
+        List<string> dates = new List<string>();
 
         public History()
         {
             InitializeComponent();
             RefreshDates();
+
+            // This is to prevent the user from "selecting" a date by tapping on it (which creates an ugly highlight effect)
+            HistoryList.ItemTapped += (object sender, ItemTappedEventArgs e) => { HistoryList.SelectedItem = null; };
         }
 
         /// <summary>
@@ -54,7 +57,6 @@ namespace ProjectApp.Views
             dates = new List<string>(DatabaseManager.GetHistoryDates());
             HistoryList.ItemsSource = dates;
         }
-
 
     }
 }
