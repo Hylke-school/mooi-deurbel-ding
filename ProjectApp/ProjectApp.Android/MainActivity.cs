@@ -11,6 +11,8 @@ using Android.Content;
 using Plugin.PushNotification;
 using Plugin.LocalNotifications;
 
+using ProjectApp.Database;
+
 namespace ProjectApp.Droid
 {
     [Activity(Label = "ProjectApp", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
@@ -34,6 +36,7 @@ namespace ProjectApp.Droid
             CrossPushNotification.Current.OnNotificationReceived += (s, p) =>
             {
                 CrossLocalNotifications.Current.Show("Doorbell", "Someone's at your door!");
+                DatabaseManager.StoreCurrentDate();
             };
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

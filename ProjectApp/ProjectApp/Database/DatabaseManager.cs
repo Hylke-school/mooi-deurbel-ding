@@ -7,7 +7,7 @@ using Xamarin.Forms;
 
 namespace ProjectApp.Database
 {
-    static class DatabaseManager
+    public static class DatabaseManager
     {
         private static SQLiteConnection db = DependencyService.Get<IDBInterface>().CreateConnection();
 
