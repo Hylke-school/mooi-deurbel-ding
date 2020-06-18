@@ -14,10 +14,10 @@ namespace ProjectApp.Database
         /// <summary>
         /// Stores the current date + time into the database, and also returns it if you want to do anything with it.
         /// </summary>
-        /// <returns>A String with the current date and time, formatted as dd/mm/yyyy h:mm AM/PM</returns>
+        /// <returns>A String with the current date and time</returns>
         public static string StoreCurrentDate()
         {
-            string date = DateTime.Now.ToString(@"dd\/MM\/yyyy h\:mm tt");
+            string date = DateTime.Now.ToString();
             db.Insert(new Date() { date = date });
 
             return date;
@@ -29,10 +29,12 @@ namespace ProjectApp.Database
         /// <returns>A List of Strings filled with dates.</returns>
         public static List<String> GetHistoryDates()
         {
-            List<Date> dates = db.Table<Date>().ToList();
+            List<Date> dates = new List<Date>(db.Table<Date>().ToList());
+            List<string> dateStrings = dates.ConvertAll(dateObject => dateObject.date);
+            List<string> dateStringsOrdered = dateStrings.OrderByDescending(x => DateTime.Parse(x)).ToList();
 
             // Conversion from List<Date> to List<string>
-            return dates.ConvertAll(dateObject => dateObject.date);
+            return dateStringsOrdered;
         }
 
         /// <summary>

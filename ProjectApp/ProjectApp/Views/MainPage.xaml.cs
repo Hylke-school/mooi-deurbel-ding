@@ -18,5 +18,5 @@ namespace ProjectApp.Views
 			InitializeComponent();
 		}
 
-	}
+    }
 }

@@ -17,16 +17,44 @@ namespace ProjectApp.Views
     [DesignTimeVisible(false)]
     public partial class History : ContentPage
     {
-        ArduinoHandler arduinoHandler = ArduinoHandler.Handler;
+        List<string> dates;
 
-        // Used to refresh the GUI
-        const double refreshIntervalMilliseconds = 1000;
-        bool waitForResponse = false;
-
-        List<string> historylist = new List<string>();
         public History()
         {
             InitializeComponent();
+            RefreshDates();
         }
+
+        /// <summary>
+        /// Event that gets fired when the page appears on the screen. Used to reload the dates. 
+        /// </summary>
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            RefreshDates();
+        }
+
+
+        /// <summary>
+        /// Event handler for when the clear history button is tapped.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ButtonClearTapped(object sender, EventArgs e)
+        {
+            DatabaseManager.DeleteDates();
+            RefreshDates();
+        }
+
+        /// <summary>
+        /// Refresh the list of dates on the screen.
+        /// </summary>
+        public void RefreshDates()
+        {
+            dates = new List<string>(DatabaseManager.GetHistoryDates());
+            HistoryList.ItemsSource = dates;
+        }
+
+
     }
 }
