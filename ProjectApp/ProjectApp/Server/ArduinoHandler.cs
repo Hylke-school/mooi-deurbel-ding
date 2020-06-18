@@ -29,11 +29,14 @@ namespace ProjectApp.Server
 
         /// <summary>ArduinoStatus object that can be used as a DataBinding object for the user interface to automatically update and display data.</summary>
         private Connection connection;
-        
+
+        public TempStatus Status { get; private set; }
+
         /// <summary>Returns an ArduinoHandler object. Invoke StartConnection() to start a connection with the server.</summary>
         private ArduinoHandler()
         {
             connection = new Connection();
+            Status = new TempStatus();
         }
 
         /// <summary>
@@ -80,7 +83,14 @@ namespace ProjectApp.Server
         /// </summary>
         public bool IsConnected()
         {
-            return connection.IsConnected();
+            bool connectstatus = connection.IsConnected();
+
+            if (connectstatus)
+                Status.ConnectionStatus = "Connected";
+            else
+                Status.ConnectionStatus = "Disconnected";
+
+            return connectstatus;
         }
 
         /// <summary>
@@ -131,6 +141,7 @@ namespace ProjectApp.Server
         public void LockPackageBox()
         {
             connection.ExecuteCommand("l", false);
+            BoxStatus();
         }
 
         /// <summary>
@@ -139,6 +150,7 @@ namespace ProjectApp.Server
         public void UnlockPackageBox()
         {
             connection.ExecuteCommand("u", false);
+            BoxStatus();
         }
 
         /// <summary>
@@ -148,16 +160,16 @@ namespace ProjectApp.Server
         ///             Open    : if the box is unlocked
         ///             Error   : if the response is unexpected
         /// </returns>
-        public string BoxStatus()
+        public void BoxStatus()
         {
             string response = connection.ExecuteCommand("s");
 
             if (response == "CLS")
-                return "Closed";
+                Status.BoxStatus = "Closed";
             else if (response == "OPN")
-                return "Open";
+                Status.BoxStatus = "Open";
             else
-                return "BoxStatus Error";
+                Status.BoxStatus = "BoxStatus Error";
         }
     }
 }

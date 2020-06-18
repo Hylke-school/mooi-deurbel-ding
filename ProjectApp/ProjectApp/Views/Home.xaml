@@ -8,10 +8,12 @@
              Title="ArduinoApp">
     <ContentPage.Content>
         <StackLayout>
-            <Button x:Name="ButtonUnlock" Text="Unlock" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150" Margin="0, 25, 0, 0"></Button>
-            <Button x:Name="ButtonLock" Text="Lock" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150"></Button>
-            <Label Text="Status" FontSize="Large" Margin="100, 25, 0, 0"></Label>
-            <Label Text="placeholdertext" Margin="100, 5, 0, 0"></Label>
+            <Button x:Name="ButtonUnlock" Clicked="ButtonUnlock_Clicked" Text="Unlock" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150" Margin="0, 25, 0, 0"/>
+            <Button x:Name="ButtonLock" Clicked="ButtonLock_Clicked" Text="Lock" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150"/>
+            <Label Text="Connection status" FontSize="Large" Margin="100, 25, 0, 0"/>
+            <Label Text="{Binding ConnectionStatus}" Margin="100, 5, 0, 0"/>
+            <Label Text="Box status" FontSize="Large" Margin="100, 25,0,0"/>
+            <Label Text="{Binding BoxStatus}" Margin="100, 5,0,0"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

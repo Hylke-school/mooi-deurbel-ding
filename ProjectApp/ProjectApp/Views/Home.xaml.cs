@@ -26,6 +26,20 @@ namespace ProjectApp.Views
         public Home()
         {
             InitializeComponent();
+            arduinoHandler.IsConnected();
+
+            this.BindingContext = arduinoHandler.Status;
+        }
+
+        private void ButtonUnlock_Clicked(object sender, EventArgs e)
+        {
+            arduinoHandler.UnlockPackageBox();
+
+        }
+
+        private void ButtonLock_Clicked(object sender, EventArgs e)
+        {
+            arduinoHandler.LockPackageBox();
         }
     }
 }

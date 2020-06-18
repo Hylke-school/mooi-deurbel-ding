@@ -82,7 +82,6 @@ namespace ProjectApp.Server
 
                 ExecuteCommand("c", false);
             }
-
             catch
             {
                 socket = null;
