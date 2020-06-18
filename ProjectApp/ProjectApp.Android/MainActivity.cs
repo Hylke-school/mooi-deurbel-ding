@@ -33,7 +33,7 @@ namespace ProjectApp.Droid
             PushNotificationManager.Initialize(this, false);
             CrossPushNotification.Current.OnNotificationReceived += (s, p) =>
             {
-                CrossLocalNotifications.Current.Show("Notification", "button has been pressed");
+                CrossLocalNotifications.Current.Show("Doorbell", "Someone's at your door!");
             };
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
