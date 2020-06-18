@@ -1,4 +1,4 @@
-﻿ik we<?xml version="1.0" encoding="utf-8" ?>
+﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -21,7 +21,7 @@
             </StackLayout>
         </StackLayout>
         <Button x:Name="ButtonConnect" Clicked="ConnectClicked" Text="Connect" WidthRequest="150" HorizontalOptions="Center"/>
-        <Button x:Name="ButtonDisconnect" Text="Disconnect" Clicked="DisconnectClicked" WidthRequest="150" HorizontalOptions="Center"/>
+        <Button x:Name="ButtonDisconnect" IsEnabled="False" Text="Disconnect" Clicked="DisconnectClicked" WidthRequest="150" HorizontalOptions="Center"/>
 
         <!-- Info and error texts -->
         <Label Margin="20, 0, 0, 0">Info:</Label>

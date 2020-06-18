@@ -96,6 +96,7 @@ namespace ProjectApp.Server
         {
             socket.Shutdown(SocketShutdown.Both);
             socket.Close();
+            socket = null;
         }
 
         /// <summary>

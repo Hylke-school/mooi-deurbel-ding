@@ -36,7 +36,8 @@ namespace ProjectApp.Views
             Device.BeginInvokeOnMainThread(() =>
             {
                 // Enable / disable connect buttons
-                ButtonConnect.IsEnabled = arduinoHandler.IsConnected();
+                ButtonConnect.IsEnabled = !arduinoHandler.IsConnected();
+                ButtonDisconnect.IsEnabled = arduinoHandler.IsConnected();
 
                 if (arduinoHandler.IsConnected())
                 {
@@ -101,6 +102,7 @@ namespace ProjectApp.Views
         /// <param name="e"></param>
         private void DisconnectClicked(object sender, EventArgs e)
         {
+            ButtonDisconnect.IsEnabled = false;
             arduinoHandler.CloseConnection();
         }
     }
