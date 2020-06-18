@@ -8,8 +8,14 @@
              Title="ArduinoApp">
     <ContentPage.Content>
         <StackLayout>
-            <ListView x:Name="HistoryList"></ListView>
-            <Button x:Name="ButtonClear" Text="Clear history" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150" Margin="0, 0, 0, 25"></Button>
+            <ListView x:Name="HistoryList" ItemsSource="{Binding dates}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding .}" TextColor="Black"></TextCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button x:Name="ButtonClear" Clicked="ButtonClearTapped" Text="Clear history" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150" Margin="0, 0, 0, 25"></Button>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

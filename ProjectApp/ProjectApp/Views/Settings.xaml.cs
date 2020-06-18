@@ -35,11 +35,11 @@ namespace ProjectApp.Views
         {
             Device.BeginInvokeOnMainThread(() =>
             {
+                // Enable / disable connect buttons
+                ButtonConnect.IsEnabled = arduinoHandler.IsConnected();
+
                 if (arduinoHandler.IsConnected())
                 {
-                    // DoorStatus.Text = arduinoHandler.GetDoorStatus(); 
-                    ButtonConnect.IsEnabled = false;
-
                     if (waitForResponse)
                     {
                         if (arduinoHandler.CheckForDoorBell())
@@ -48,11 +48,11 @@ namespace ProjectApp.Views
                         }
                     }
                 }
+
                 else
                 {
-                    ButtonConnect.IsEnabled = true;
-                }
-
+                    // Empty for now, who knows what the future will hold
+                }      
             });
         }
 
@@ -92,6 +92,16 @@ namespace ProjectApp.Views
 
             // Refresh GUI (in case it needs to display errors)
             RefreshGUI();
+        }
+
+        /// <summary>
+        /// Event handler for when the Disconnect button is tapped. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DisconnectClicked(object sender, EventArgs e)
+        {
+            arduinoHandler.CloseConnection();
         }
     }
 }
