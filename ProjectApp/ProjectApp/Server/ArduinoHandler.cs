@@ -30,13 +30,13 @@ namespace ProjectApp.Server
         /// <summary>ArduinoStatus object that can be used as a DataBinding object for the user interface to automatically update and display data.</summary>
         private Connection connection;
 
-        public TempStatus Status { get; private set; }
+        public ProgramStatus Status { get; private set; }
 
         /// <summary>Returns an ArduinoHandler object. Invoke StartConnection() to start a connection with the server.</summary>
         private ArduinoHandler()
         {
             connection = new Connection();
-            Status = new TempStatus();
+            Status = new ProgramStatus();
         }
 
         /// <summary>
@@ -67,6 +67,7 @@ namespace ProjectApp.Server
                 return false;
             }
 
+            BoxStatus();
             return connection.IsConnected();
         }
 
@@ -107,6 +108,15 @@ namespace ProjectApp.Server
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// On startup to set all the status texts
+        /// </summary>
+        public void OnStartup()
+        {
+            IsConnected();
+            BoxStatus();
         }
 
         /* =========================================================================
@@ -165,11 +175,11 @@ namespace ProjectApp.Server
             string response = connection.ExecuteCommand("s");
 
             if (response == "CLS")
-                Status.BoxStatus = "Closed";
+                Status.BoxStatus = "Locked";
             else if (response == "OPN")
-                Status.BoxStatus = "Open";
-            else
-                Status.BoxStatus = "BoxStatus Error";
+                Status.BoxStatus = "Unlocked";
+            else 
+                Status.BoxStatus = response;
         }
     }
 }

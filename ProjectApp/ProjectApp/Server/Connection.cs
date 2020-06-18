@@ -121,7 +121,7 @@ namespace ProjectApp.Server
             // Assuming response is always 4 bytes
             byte[] buffer = new byte[4];
             int bytesReceived = 0;
-            string result = "error";
+            string result = "arduino disconnected";
 
             if (socket != null)
             {

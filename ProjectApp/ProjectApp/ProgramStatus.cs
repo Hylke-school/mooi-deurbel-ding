@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ProjectApp
 {
-    public class TempStatus : INotifyPropertyChanged
+    public class ProgramStatus : INotifyPropertyChanged
     {
         private string connectionStatus = "Disconnected";
         public string ConnectionStatus
