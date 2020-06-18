@@ -8,7 +8,7 @@
              Title="ArduinoApp">
     <ContentPage.Content>
         <StackLayout>
-            <ListView></ListView>
+            <ListView x:Name="HistoryList"></ListView>
             <Button x:Name="ButtonClear" Text="Clear history" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150" Margin="0, 0, 0, 25"></Button>
         </StackLayout>
     </ContentPage.Content>

@@ -23,6 +23,7 @@ namespace ProjectApp.Views
         const double refreshIntervalMilliseconds = 1000;
         bool waitForResponse = false;
 
+        List<string> historylist = new List<string>();
         public History()
         {
             InitializeComponent();
