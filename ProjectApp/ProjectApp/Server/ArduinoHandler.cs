@@ -68,6 +68,14 @@ namespace ProjectApp.Server
         }
 
         /// <summary>
+        /// Closes the connection with the Arduino server.
+        /// </summary>
+        public void CloseConnection()
+        {
+            connection.CloseConnection();
+        }
+
+        /// <summary>
         /// Refreshes the status (connected / not connected, and the sensor value).
         /// </summary>
         public void RefreshStatus()
