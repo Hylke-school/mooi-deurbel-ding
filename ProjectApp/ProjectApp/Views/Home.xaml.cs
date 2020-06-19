@@ -19,15 +19,32 @@ namespace ProjectApp.Views
     {
         ArduinoHandler arduinoHandler = ArduinoHandler.Handler;
 
-        // Used to refresh the GUI
-        const double refreshIntervalMilliseconds = 1000;
-        bool waitForResponse = false;
-
         public Home()
         {
             InitializeComponent();
 
             BindingContext = arduinoHandler.Status;
+            arduinoHandler.StatusRefreshedEvent += RefreshGUI;
+        }
+
+        /// <summary>
+        /// Event handler that gets fired everytime the ArduinoHandler periodically refreshes.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void RefreshGUI(object sender, EventArgs e)
+        {
+
+            if (arduinoHandler.IsConnected())
+            {
+                ButtonUnlock.IsEnabled = arduinoHandler.Status.BoxStatus == "Locked";
+                ButtonLock.IsEnabled = arduinoHandler.Status.BoxStatus == "Unlocked";
+            }
+
+            else
+            {
+                ButtonUnlock.IsEnabled = ButtonLock.IsEnabled = false;
+            }
         }
 
         /// <summary>

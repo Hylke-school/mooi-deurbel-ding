@@ -19,44 +19,39 @@ namespace ProjectApp.Views
     {
         ArduinoHandler arduinoHandler = ArduinoHandler.Handler;
 
-        // Used to refresh the GUI
-        const double refreshIntervalMilliseconds = 1000;
         bool waitForResponse = false;
 
         public Settings()
         {
             InitializeComponent();
+            arduinoHandler.StatusRefreshedEvent += RefreshGUI;
         }
 
         /// <summary>
         ///  Use this method for things that need to be done to refresh the GUI everytime the timer goes off. 
         /// </summary>
-        private void RefreshGUI()
+        private void RefreshGUI(object sender, EventArgs e)
         {
-            Device.BeginInvokeOnMainThread(() =>
+            // Enable / disable connect buttons
+            ButtonConnect.IsEnabled = !arduinoHandler.IsConnected();
+            ButtonDisconnect.IsEnabled = arduinoHandler.IsConnected();
+
+            if (arduinoHandler.IsConnected())
             {
-                // Enable / disable connect buttons
-                ButtonConnect.IsEnabled = !arduinoHandler.IsConnected();
-                ButtonDisconnect.IsEnabled = arduinoHandler.IsConnected();
 
-                if (arduinoHandler.IsConnected())
+                if (waitForResponse)
                 {
-                    arduinoHandler.RefreshStatus();
-
-                    if (waitForResponse)
+                    if (arduinoHandler.CheckForDoorBell())
                     {
-                        if (arduinoHandler.CheckForDoorBell())
-                        {
-                            TextErrors.Text = Connection.counter.ToString();
-                        }
+                        TextErrors.Text = Connection.counter.ToString();
                     }
                 }
+            }
 
-                else
-                {
-                    // Empty for now, who knows what the future will hold
-                }      
-            });
+            else
+            {
+                // Empty for now, who knows what the future will hold
+            }
         }
 
         /// <summary>
@@ -76,14 +71,8 @@ namespace ProjectApp.Views
             // Prevent user from pressing connect multiple times
             ButtonConnect.IsEnabled = false;
 
-            // If succesfully connected, start the refresh GUI timer
-            if (arduinoHandler.StartConnection(ipAddress, port))
-            {
-                Timer timer = new Timer(refreshIntervalMilliseconds);
-                timer.Elapsed += (obj, args) => RefreshGUI();
-                timer.Start();
-            }
-            else
+            // See if succesful connection could be made
+            if (arduinoHandler.StartConnection(ipAddress, port) == false)
             {
                 ButtonConnect.IsEnabled = true;
                 TextErrors.Text = "Looks like we had a problem connecting";
@@ -92,9 +81,6 @@ namespace ProjectApp.Views
             //Start with checking for the doorbell
             if (arduinoHandler.IsConnected())
                 waitForResponse = true;
-
-            // Refresh GUI (in case it needs to display errors)
-            RefreshGUI();
         }
 
         /// <summary>

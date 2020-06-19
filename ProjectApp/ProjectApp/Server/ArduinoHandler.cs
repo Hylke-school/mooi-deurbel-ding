@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using Xamarin.Forms;
 
 namespace ProjectApp.Server
@@ -15,6 +16,12 @@ namespace ProjectApp.Server
     {
         // Singleton instance
         private static readonly ArduinoHandler HANDLER = new ArduinoHandler();
+
+        /// <summary>Interval time in milliseconds to refresh the statuses.</summary>
+        private const double refreshIntervalMilliseconds = 1000;
+
+        /// <summary>Event that gets fired when the status Refreshes</summary>
+        public event EventHandler StatusRefreshedEvent;
 
         /// <summary>
         /// Returns the static ArduinoHandler instance.
@@ -59,7 +66,12 @@ namespace ProjectApp.Server
                 connection.StartConnection(ipAddress, port);
 
                 // Initialize values
+                OnStartup();
                 RefreshStatus();
+
+                Timer timer = new Timer(refreshIntervalMilliseconds);
+                timer.Elapsed += (obj, args) => RefreshStatus();
+                timer.Start();
             }
 
             // Something went wrong (like invalid IP or port)
@@ -85,8 +97,19 @@ namespace ProjectApp.Server
         /// </summary>
         public void RefreshStatus()
         {
-            PackageStatus();
-            IsConnected();
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                if (IsConnected())
+                {
+                    PackageStatus();
+                    IsConnected();
+                }
+
+                // Fire off the status refreshed event which GUI classes can listen to
+                EventHandler handler = StatusRefreshedEvent;
+                handler?.Invoke(this, EventArgs.Empty);
+
+            });
         }
 
         /// <summary>

@@ -13,13 +13,12 @@
                 <views:History/>
             </x:Arguments>
         </NavigationPage>
-        
+
         <NavigationPage Title="Home">
             <x:Arguments>
                 <views:Home/>
             </x:Arguments>
         </NavigationPage>
-
 
         <NavigationPage Title="Settings">
             <x:Arguments>
