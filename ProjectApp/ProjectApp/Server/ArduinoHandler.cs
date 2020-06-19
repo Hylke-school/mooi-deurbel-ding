@@ -125,6 +125,7 @@ namespace ProjectApp.Server
         {
             IsConnected();
             BoxStatus();
+            PackageStatus();
         }
 
         /* =========================================================================
@@ -160,6 +161,7 @@ namespace ProjectApp.Server
         {
             connection.ExecuteCommand("l", false);
             BoxStatus();
+            PackageStatus();
         }
 
         /// <summary>
@@ -188,6 +190,24 @@ namespace ProjectApp.Server
                 Status.BoxStatus = "Unlocked";
             else 
                 Status.BoxStatus = response;
+        }
+
+        public void PackageStatus()
+        {
+            string response = connection.ExecuteCommand("p");
+
+            if (response == "YES")
+            {
+                Status.PackageStatus = "Contains package";
+            }
+            else if (response == "NO")
+            {
+                Status.PackageStatus = "Empty";
+            }
+            else
+            {
+                Status.PackageStatus = response;
+            }
         }
     }
 }

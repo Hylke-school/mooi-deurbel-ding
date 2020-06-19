@@ -30,6 +30,17 @@ namespace ProjectApp
             }
         }
 
+        private string packageStatus;
+        public string PackageStatus
+        {
+            get { return packageStatus; }
+            set
+            {
+                packageStatus = value;
+                OnPropertyChanged(nameof(packageStatus));
+            }
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
