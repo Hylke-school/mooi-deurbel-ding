@@ -176,12 +176,8 @@ namespace ProjectApp.Server
         }
 
         /// <summary>
-        /// Gets the status of the box
+        /// Gets the status of the box, sets the status to Locked, Unlocked or error depending on response
         /// </summary>
-        /// <returns>   Closed  : if the box is closed and locked
-        ///             Open    : if the box is unlocked
-        ///             Error   : if the response is unexpected
-        /// </returns>
         public void BoxStatus()
         {
             string response = connection.ExecuteCommand("s");
