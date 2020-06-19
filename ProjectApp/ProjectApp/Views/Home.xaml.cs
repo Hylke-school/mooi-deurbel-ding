@@ -26,17 +26,25 @@ namespace ProjectApp.Views
         public Home()
         {
             InitializeComponent();
-            arduinoHandler.OnStartup();
 
             BindingContext = arduinoHandler.Status;
         }
 
+        /// <summary>
+        /// Event handler for when the unlock button is tapped.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonUnlock_Clicked(object sender, EventArgs e)
         {
             arduinoHandler.UnlockPackageBox();
-
         }
 
+        /// <summary>
+        /// Event handler for when the lock button is tapped. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ButtonLock_Clicked(object sender, EventArgs e)
         {
             arduinoHandler.LockPackageBox();

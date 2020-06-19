@@ -41,6 +41,8 @@ namespace ProjectApp.Views
 
                 if (arduinoHandler.IsConnected())
                 {
+                    arduinoHandler.RefreshStatus();
+
                     if (waitForResponse)
                     {
                         if (arduinoHandler.CheckForDoorBell())

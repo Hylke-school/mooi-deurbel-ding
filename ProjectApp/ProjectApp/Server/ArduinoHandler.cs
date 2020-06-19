@@ -37,6 +37,7 @@ namespace ProjectApp.Server
         {
             connection = new Connection();
             Status = new ProgramStatus();
+            OnStartup();
         }
 
         /// <summary>
@@ -80,11 +81,12 @@ namespace ProjectApp.Server
         }
 
         /// <summary>
-        /// Refreshes the status (connected / not connected, and the sensor value).
+        /// Refreshes the status.
         /// </summary>
         public void RefreshStatus()
         {
-            // Not used right now    
+            PackageStatus();
+            IsConnected();
         }
 
         /// <summary>

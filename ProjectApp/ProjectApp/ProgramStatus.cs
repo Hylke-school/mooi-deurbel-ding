@@ -19,7 +19,7 @@ namespace ProjectApp
             }
         }
 
-        private string boxStatus;
+        private string boxStatus = "Unknown";
         public string BoxStatus
         {
             get { return boxStatus; }
@@ -30,7 +30,7 @@ namespace ProjectApp
             }
         }
 
-        private string packageStatus;
+        private string packageStatus = "Unknown";
         public string PackageStatus
         {
             get { return packageStatus; }
