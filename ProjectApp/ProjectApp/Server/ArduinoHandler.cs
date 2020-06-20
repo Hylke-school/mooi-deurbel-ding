@@ -67,7 +67,6 @@ namespace ProjectApp.Server
 
                 // Initialize values
                 OnStartup();
-                RefreshStatus();
 
                 Timer timer = new Timer(refreshIntervalMilliseconds);
                 timer.Elapsed += (obj, args) => RefreshStatus();
@@ -80,7 +79,6 @@ namespace ProjectApp.Server
                 return false;
             }
 
-            BoxStatus();
             return connection.IsConnected();
         }
 

@@ -37,7 +37,7 @@ namespace ProjectApp
             set
             {
                 packageStatus = value;
-                OnPropertyChanged(nameof(packageStatus));
+                OnPropertyChanged(nameof(PackageStatus));
             }
         }
 

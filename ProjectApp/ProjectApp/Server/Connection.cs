@@ -80,7 +80,7 @@ namespace ProjectApp.Server
                     throw new ArgumentException("Could not connect to server");   
                 }
 
-                ExecuteCommand("c", false);
+                //ExecuteCommand("c", false);
             }
             catch
             {
