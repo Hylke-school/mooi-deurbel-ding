@@ -26,23 +26,13 @@ namespace ProjectApp.Views
         }
 
         /// <summary>
-        ///  Use this method for things that need to be done to refresh the GUI everytime the timer goes off. 
+        ///  Event handler that gets fired everytime the ArduinoHandler periodically refreshes.
         /// </summary>
         private void RefreshGUI(object sender, EventArgs e)
         {
-            // Enable / disable connect buttons
+            // Enable / disable connect buttons depending on the connection status
             ButtonConnect.IsEnabled = !arduinoHandler.IsConnected();
             ButtonDisconnect.IsEnabled = arduinoHandler.IsConnected();
-
-            //if (arduinoHandler.IsConnected())
-            //{
-            //    // Empty for now, who knows what the future will hold
-            //}
-
-            //else
-            //{
-            //    // Empty for now, who knows what the future will hold
-            //}
         }
 
         /// <summary>

@@ -22,10 +22,6 @@ namespace ProjectApp.Server
         private IPEndPoint remoteEP;
 
         private Socket socket;
-        public string data = null;
-
-
-        public static int counter = 0;
 
         /// <summary>
         /// Returns a Connection object. You still have to manually invoke StartConnection() to establish a connection. 
@@ -112,7 +108,8 @@ namespace ProjectApp.Server
         /// <summary>
         /// Executes a command by sending a message to the server and returning the response from the server (with white spaces trimmed). Returns "error" if something went wrong. 
         /// </summary>
-        /// <param name="command">The command to send to the server/</param>
+        /// <param name="command">The command to send to the server.</param>
+        /// <param name="receiveData">Whether or not you expect a response back that you want returned.</param>
         /// <returns></returns>
         public string ExecuteCommand(string command, bool receiveData = true)
         {
@@ -120,7 +117,7 @@ namespace ProjectApp.Server
             // Assuming response is always 4 bytes
             byte[] buffer = new byte[4];
             int bytesReceived = 0;
-            string result = "arduino disconnected";
+            string result = "Arduino disconnected";
 
             if (socket != null)
             {

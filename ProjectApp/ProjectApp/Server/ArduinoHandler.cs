@@ -159,6 +159,7 @@ namespace ProjectApp.Server
          * LockPackageBox()     - "l"
          * UnlockPackageBox()   - "u"
          * BoxStatus()          - "s" - CLS (box is locked) or OPN (box is unlocked)
+         * PackageStatus()      - "p" - "YES"(contains package) or NO (contains no package)
          */
 
 
@@ -183,14 +184,14 @@ namespace ProjectApp.Server
         }
 
         /// <summary>
-        /// Gets the status of the box
+        /// Updates the status of the box to "Locked" or "Unlocked".
         /// </summary>
-        /// <returns>   Closed  : if the box is closed and locked
-        ///             Open    : if the box is unlocked
-        ///             Error   : if the response is unexpected
-        /// </returns>
         public void BoxStatus()
         {
+            // "CLS" - box is closed and locked
+            // "OPN" - box is unlocked
+            // "Error" - if the response is unexpected
+
             string response = connection.ExecuteCommand("s");
 
             if (response == "CLS")
@@ -201,8 +202,12 @@ namespace ProjectApp.Server
                 Status.BoxStatus = response;
         }
 
+        /// <summary>
+        /// Updates the package status to "Contains package" or "Empty". 
+        /// </summary>
         public void PackageStatus()
         {
+
             string response = connection.ExecuteCommand("p");
 
             if (response == "YES")
