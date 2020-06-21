@@ -74,8 +74,11 @@ namespace ProjectApp.Server
             }
 
             // Something went wrong (like invalid IP or port)
-            catch
+            catch (Exception e)
             {
+                Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+                Console.WriteLine("Could not connect because:");
+                Console.WriteLine(e.Message);
                 return false;
             }
 

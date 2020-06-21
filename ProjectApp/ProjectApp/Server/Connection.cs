@@ -66,8 +66,6 @@ namespace ProjectApp.Server
             {
                 socket = new Socket(ipAddressServer.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
 
-                socket.ConnectAsync(remoteEP);
-
                 // Below code copied from https://stackoverflow.com/questions/456891/how-do-i-set-the-time-out-of-a-socket-connect-call
                 // This reduces the timeout from a minute to connectTimeoutMilliseconds
 
