@@ -29,15 +29,6 @@
         <!-- This one can be used by MainPage.xaml.cs. The previous label is bound to the ArduinoStatus object. -->
         <Label x:Name="TextErrors" Margin="20, 0, 0, 0"></Label>
 
-        <Grid Margin="0, 30, 100, 0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Label Grid.Column="1" Text="Send notifications"></Label>
-            <Switch Grid.Column="2" x:Name="NotificationSwitch"></Switch>
-        </Grid>
-
     </StackLayout>
 
 
