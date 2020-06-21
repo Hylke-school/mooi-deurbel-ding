@@ -39,13 +39,13 @@ namespace ProjectApp.Views
             if (arduinoHandler.IsConnected())
             {
 
-                if (waitForResponse)
-                {
-                    if (arduinoHandler.CheckForDoorBell())
-                    {
-                        TextErrors.Text = Connection.counter.ToString();
-                    }
-                }
+                //if (waitForResponse)
+                //{
+                //    if (arduinoHandler.CheckForDoorBell())
+                //    {
+                //        TextErrors.Text = Connection.counter.ToString();
+                //    }
+                //}
             }
 
             else
