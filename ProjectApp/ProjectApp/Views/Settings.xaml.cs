@@ -19,8 +19,6 @@ namespace ProjectApp.Views
     {
         ArduinoHandler arduinoHandler = ArduinoHandler.Handler;
 
-        bool waitForResponse = false;
-
         public Settings()
         {
             InitializeComponent();
@@ -36,22 +34,15 @@ namespace ProjectApp.Views
             ButtonConnect.IsEnabled = !arduinoHandler.IsConnected();
             ButtonDisconnect.IsEnabled = arduinoHandler.IsConnected();
 
-            if (arduinoHandler.IsConnected())
-            {
+            //if (arduinoHandler.IsConnected())
+            //{
+            //    // Empty for now, who knows what the future will hold
+            //}
 
-                //if (waitForResponse)
-                //{
-                //    if (arduinoHandler.CheckForDoorBell())
-                //    {
-                //        TextErrors.Text = Connection.counter.ToString();
-                //    }
-                //}
-            }
-
-            else
-            {
-                // Empty for now, who knows what the future will hold
-            }
+            //else
+            //{
+            //    // Empty for now, who knows what the future will hold
+            //}
         }
 
         /// <summary>
@@ -77,10 +68,6 @@ namespace ProjectApp.Views
                 ButtonConnect.IsEnabled = true;
                 TextErrors.Text = "Looks like we had a problem connecting";
             }
-
-            //Start with checking for the doorbell
-            if (arduinoHandler.IsConnected())
-                waitForResponse = true;
         }
 
         /// <summary>

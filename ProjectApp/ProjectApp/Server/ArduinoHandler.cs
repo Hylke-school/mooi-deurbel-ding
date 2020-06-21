@@ -126,22 +126,6 @@ namespace ProjectApp.Server
         }
 
         /// <summary>
-        /// Call the CheckForDoorBell function in the connector
-        /// </summary>
-        /// <returns> whether or not the bell was pressed</returns>
-        public bool CheckForDoorBell()
-        {
-            try
-            {
-                return connection.CheckForDoorBell();
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
         /// On startup to set all the status texts
         /// </summary>
         public void OnStartup()

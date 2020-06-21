@@ -80,8 +80,8 @@ namespace ProjectApp.Server
                     throw new ArgumentException("Could not connect to server");   
                 }
 
-                //ExecuteCommand("c", false);
             }
+
             catch
             {
                 socket = null;
@@ -151,46 +151,6 @@ namespace ProjectApp.Server
             }
 
             return result;
-        }
-
-        /// <summary>
-        /// Listens if the arduino has send a message, if the message is BEL, tell the arduino that the message is received.
-        /// </summary>
-        /// <param name="success">bool, if the message was received true otherwise false</param>
-        public bool CheckForDoorBell()
-        {
-            byte[] bytes = new byte[1024];
-
-            if (socket != null)
-            {
-                socket.ReceiveTimeout = 1;
-
-                try
-                {
-                    data = null;
-
-                    int bytesRec = socket.Receive(bytes);
-
-                    if (bytesRec > 0)
-                    {
-                        data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-
-                        if (data.IndexOf("BEL") > -1)
-                        {
-                            counter++;
-                            ExecuteCommand("r", false);
-                            return true;
-                        }
-                    }
-                }
-                catch (SocketException se)
-                {
-                    if (se.SocketErrorCode != SocketError.WouldBlock)
-                        throw new ArgumentException("Could not check for the doorbell");
-                }
-            }
-
-            return false;
         }
 
         // ===================================================
