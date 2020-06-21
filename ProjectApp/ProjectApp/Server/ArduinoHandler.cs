@@ -162,8 +162,6 @@ namespace ProjectApp.Server
          */
 
 
-        // Example:
-
         /// <summary>
         /// Sends a message to the arduino to close and lock the box
         /// </summary>
@@ -171,7 +169,7 @@ namespace ProjectApp.Server
         {
             connection.ExecuteCommand("l", false);
             BoxStatus();
-            PackageStatus();
+            RefreshStatus();
         }
 
         /// <summary>
@@ -181,6 +179,7 @@ namespace ProjectApp.Server
         {
             connection.ExecuteCommand("u", false);
             BoxStatus();
+            RefreshStatus();
         }
 
         /// <summary>
