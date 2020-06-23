@@ -57,6 +57,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Plugin.FirebasePushNotification">
+      <Version>3.3.10</Version>
+    </PackageReference>
     <PackageReference Include="Plugin.PushNotification">
       <Version>3.3.3</Version>
     </PackageReference>

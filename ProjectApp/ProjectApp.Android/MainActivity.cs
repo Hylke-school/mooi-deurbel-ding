@@ -9,10 +9,12 @@ using Android.OS;
 using Android.Content;
 
 using Plugin.PushNotification;
+using Plugin.FirebasePushNotification;
 using Plugin.LocalNotifications;
 
 using ProjectApp.Database;
 using System.Linq;
+using Firebase.Messaging;
 
 namespace ProjectApp.Droid
 {
@@ -41,9 +43,14 @@ namespace ProjectApp.Droid
             PushNotificationManager.DefaultNotificationChannelName = "notifications";
 
             //initializes the notification manager plugin
-            PushNotificationManager.Initialize(this, false);
+
+            FirebasePushNotificationManager.Initialize(this, false);
+
+            //Subscribes app to a notification topic
+            CrossFirebasePushNotification.Current.Subscribe("notifications");
+
             //Triggers when a notification is received, runs in a service, works even when app isn't running
-            CrossPushNotification.Current.OnNotificationReceived += (s, p) =>
+            CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
             {
                 //gets data from notification
                 var data = p.Data;
