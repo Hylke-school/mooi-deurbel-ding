@@ -39,9 +39,13 @@ namespace ProjectApp.Server
         /// <param name="port">The port of the server.</param>
         public void StartConnection(string ipAddress, string port)
         {
+            // Prevent starting a connection when already connected
             if (socket != null)
             {
-                return;
+                if (socket.Connected == true)
+                {
+                    return;
+                }
             }
 
             if (CheckValidIpAddress(ipAddress) == false)
