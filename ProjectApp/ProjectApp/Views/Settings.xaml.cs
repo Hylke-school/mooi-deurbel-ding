@@ -9,6 +9,7 @@ using System.Text;
 using System.Timers;
 using Xamarin.Forms;
 using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
+using Application = Xamarin.Forms.Application;
 
 namespace ProjectApp.Views
 {
@@ -23,6 +24,12 @@ namespace ProjectApp.Views
         {
             InitializeComponent();
             arduinoHandler.StatusRefreshedEvent += RefreshGUI;
+
+            if (Application.Current.Properties.ContainsKey("IP"))
+                EntryIPAddress.Text = Application.Current.Properties["IP"] as string;
+
+            if (Application.Current.Properties.ContainsKey("PORT"))
+                EntryPort.Text = Application.Current.Properties["PORT"] as string;
         }
 
         /// <summary>
@@ -48,6 +55,10 @@ namespace ProjectApp.Views
 
             string ipAddress = EntryIPAddress.Text;
             string port = EntryPort.Text;
+
+            Application.Current.Properties["IP"] = ipAddress;
+            Application.Current.Properties["PORT"] = port;
+            Application.Current.SavePropertiesAsync();
 
             // Prevent user from pressing connect multiple times
             ButtonConnect.IsEnabled = false;
