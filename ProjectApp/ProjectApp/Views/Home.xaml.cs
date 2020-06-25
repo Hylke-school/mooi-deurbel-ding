@@ -37,13 +37,12 @@ namespace ProjectApp.Views
 
             if (arduinoHandler.IsConnected())
             {
-                ButtonUnlock.IsEnabled = arduinoHandler.Status.BoxStatus == "Locked";
-                ButtonLock.IsEnabled = arduinoHandler.Status.BoxStatus == "Unlocked";
+                ButtonUnlock.IsEnabled = arduinoHandler.Status.BoxStatus == "Closed";
             }
 
             else
             {
-                ButtonUnlock.IsEnabled = ButtonLock.IsEnabled = false;
+                ButtonUnlock.IsEnabled  = false;
             }
         }
 
@@ -54,17 +53,8 @@ namespace ProjectApp.Views
         /// <param name="e"></param>
         private void ButtonUnlock_Clicked(object sender, EventArgs e)
         {
+            ButtonUnlock.IsEnabled = false;
             arduinoHandler.UnlockPackageBox();
-        }
-
-        /// <summary>
-        /// Event handler for when the lock button is tapped. 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ButtonLock_Clicked(object sender, EventArgs e)
-        {
-            arduinoHandler.LockPackageBox();
         }
     }
 }

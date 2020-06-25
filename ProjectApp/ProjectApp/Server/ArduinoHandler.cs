@@ -69,7 +69,7 @@ namespace ProjectApp.Server
                 OnStartup();
 
                 Timer timer = new Timer(refreshIntervalMilliseconds);
-                timer.Elapsed += (obj, args) => RefreshStatus();
+                timer.Elapsed += (obj, args) => RefreshStatus(true);
                 timer.Start();
             }
 
@@ -94,16 +94,20 @@ namespace ProjectApp.Server
         }
 
         /// <summary>
-        /// Refreshes the status.
+        /// Refreshes the status on the main thread and fires off the StatusRefreshedEvent event. 
         /// </summary>
-        public void RefreshStatus()
+        /// <param name="checkPackage">If the package needs to be checked. Optional to keep UI more responsive.</param>
+        public void RefreshStatus(bool checkPackage)
         {
             Device.BeginInvokeOnMainThread(() =>
             {
                 if (IsConnected())
                 {
-                    PackageStatus();
                     IsConnected();
+                    BoxStatus();
+                    
+                    if (checkPackage)
+                        PackageStatus();
                 }
 
                 // Fire off the status refreshed event which GUI classes can listen to
@@ -166,12 +170,12 @@ namespace ProjectApp.Server
         /// <summary>
         /// Sends a message to the arduino to close and lock the box
         /// </summary>
-        public void LockPackageBox()
-        {
-            connection.ExecuteCommand("l", false);
-            BoxStatus();
-            RefreshStatus();
-        }
+        //public void LockPackageBox()
+        //{
+        //    connection.ExecuteCommand("l", false);
+        //    BoxStatus();
+        //    RefreshStatus();
+        //}
 
         /// <summary>
         /// Sends a message to the arduino to open/unlock the box
@@ -179,8 +183,7 @@ namespace ProjectApp.Server
         public void UnlockPackageBox()
         {
             connection.ExecuteCommand("u", false);
-            BoxStatus();
-            RefreshStatus();
+            RefreshStatus(false);
         }
 
         /// <summary>
@@ -195,9 +198,9 @@ namespace ProjectApp.Server
             string response = connection.ExecuteCommand("s");
 
             if (response == "CLS")
-                Status.BoxStatus = "Locked";
+                Status.BoxStatus = "Closed";
             else if (response == "OPN")
-                Status.BoxStatus = "Unlocked";
+                Status.BoxStatus = "Open";
             else 
                 Status.BoxStatus = response;
         }

@@ -9,7 +9,6 @@
     <ContentPage.Content>
         <StackLayout>
             <Button x:Name="ButtonUnlock" Clicked="ButtonUnlock_Clicked" Text="Unlock" IsEnabled="False" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150" Margin="0, 25, 0, 0"/>
-            <Button x:Name="ButtonLock" Clicked="ButtonLock_Clicked" Text="Lock" IsEnabled="False" VerticalOptions="Center" HorizontalOptions="Center" WidthRequest="150"/>
             <Label Text="Connection status" FontSize="Large" Margin="100, 25, 0, 0"/>
             <Label Text="{Binding ConnectionStatus}" Margin="100, 5, 0, 0"/>
             <Label Text="Box status" FontSize="Large" Margin="100, 25,0,0"/>
