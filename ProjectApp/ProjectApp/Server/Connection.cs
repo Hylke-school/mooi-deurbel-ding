@@ -163,7 +163,7 @@ namespace ProjectApp.Server
         private void SendMessage(string message)
         {
             // Messages always end with ">"
-            byte[] msgAsBytes = Encoding.ASCII.GetBytes(message + ">");
+            byte[] msgAsBytes = Encoding.ASCII.GetBytes(message);
             socket.Send(msgAsBytes);
         }
 

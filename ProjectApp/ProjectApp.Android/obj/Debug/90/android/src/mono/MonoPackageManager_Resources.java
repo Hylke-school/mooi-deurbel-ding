@@ -66,7 +66,6 @@ public class MonoPackageManager_Resources {
 		"Xamarin.GooglePlayServices.Basement.dll",
 		"Xamarin.GooglePlayServices.Stats.dll",
 		"Xamarin.GooglePlayServices.Tasks.dll",
-		"Xamarin.iOS.dll",
 	};
 	public static String[] Dependencies = new String[]{
 	};

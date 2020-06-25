@@ -1,24 +1,24 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hylkje\\Programming\\Project 1.4\\App\\ProjectApp\\ProjectApp\\ProjectApp.csproj": {}
+    "C:\\Users\\Weezi\\Desktop\\School\\Huiswerk\\mooi-deurbel-ding\\ProjectApp\\ProjectApp\\ProjectApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hylkje\\Programming\\Project 1.4\\App\\ProjectApp\\ProjectApp\\ProjectApp.csproj": {
+    "C:\\Users\\Weezi\\Desktop\\School\\Huiswerk\\mooi-deurbel-ding\\ProjectApp\\ProjectApp\\ProjectApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hylkje\\Programming\\Project 1.4\\App\\ProjectApp\\ProjectApp\\ProjectApp.csproj",
+        "projectUniqueName": "C:\\Users\\Weezi\\Desktop\\School\\Huiswerk\\mooi-deurbel-ding\\ProjectApp\\ProjectApp\\ProjectApp.csproj",
         "projectName": "ProjectApp",
-        "projectPath": "C:\\Users\\Hylkje\\Programming\\Project 1.4\\App\\ProjectApp\\ProjectApp\\ProjectApp.csproj",
-        "packagesPath": "C:\\Users\\Hylkje\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hylkje\\Programming\\Project 1.4\\App\\ProjectApp\\ProjectApp\\obj\\",
+        "projectPath": "C:\\Users\\Weezi\\Desktop\\School\\Huiswerk\\mooi-deurbel-ding\\ProjectApp\\ProjectApp\\ProjectApp.csproj",
+        "packagesPath": "C:\\Users\\Weezi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Weezi\\Desktop\\School\\Huiswerk\\mooi-deurbel-ding\\ProjectApp\\ProjectApp\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\",
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Hylkje\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Weezi\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -72,7 +72,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.300\\RuntimeIdentifierGraph.json"
         }
       }
     }
