@@ -29,7 +29,7 @@ namespace ProjectApp.Views
         }
 
         /// <summary>
-        /// Event that gets fired when the page appears on the screen. Used to reload the dates. 
+        /// Event that gets fired when the page appears on the screen. Used to reload the dates dynamically. 
         /// </summary>
         protected override void OnAppearing()
         {

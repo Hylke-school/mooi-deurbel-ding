@@ -23,6 +23,7 @@ namespace ProjectApp.Views
         {
             InitializeComponent();
 
+            // Set GUI binding and register StatusRefreshedEvent event listener
             BindingContext = arduinoHandler.Status;
             arduinoHandler.StatusRefreshedEvent += RefreshGUI;
         }
@@ -37,6 +38,7 @@ namespace ProjectApp.Views
 
             if (arduinoHandler.IsConnected())
             {
+                // Only enable the Unlock button when the box is actually closed
                 ButtonUnlock.IsEnabled = arduinoHandler.Status.BoxStatus == "Closed";
             }
 

@@ -41,6 +41,8 @@ namespace ProjectApp
             }
         }
 
+        // The stuff below is needed so the GUI gets notified when the variables change so it gets automatically updated
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

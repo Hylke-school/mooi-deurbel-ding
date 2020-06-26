@@ -14,7 +14,7 @@ namespace ProjectApp.Server
 {
     class Connection
     {
-
+        // Time before timing out the attempt to establish a connection, so you don't have to wait an entire 
         private const int connectTimeoutMilliseconds = 10000; // 10 seconds
 
         private IPAddress ipAddressServer;
@@ -125,7 +125,9 @@ namespace ProjectApp.Server
 
             if (socket != null)
             {
+                // Send the command to the server
                 SendMessage(command);
+
                 try
                 {
                     if (receiveData)
@@ -134,7 +136,7 @@ namespace ProjectApp.Server
 
                         if (bytesReceived == 4)
                         {
-                            // -1 to skip \n, Trim() to trim white spaces at the start since it's always 4 characters (though whitespaces later got removed so probably unnecessary now)
+                            // -1 to skip \n, Trim() to trim white spaces at the start (like in " NO") since it's always 4 characters
                             result = Encoding.ASCII.GetString(buffer, 0, bytesReceived - 1).Trim();
                         }
                     }
@@ -157,12 +159,16 @@ namespace ProjectApp.Server
         // ===================================================
 
         /// <summary>
-        /// Sends a message to the Arduino server, encoded in such a way that messages always end with ">".
+        /// Sends a message to the Arduino server.
         /// </summary>
-        /// <param name="message">The message to send.</param>
+        /// <param name="message">The message to send. NEEDS TO BE ONLY A SINGLE CHARACTER.</param>
         private void SendMessage(string message)
         {
-            // Messages always end with ">"
+            if (message.Length > 1 )
+            {
+                throw new ArgumentException("Command can only be 1 character!");
+            }
+
             byte[] msgAsBytes = Encoding.ASCII.GetBytes(message);
             socket.Send(msgAsBytes);
         }

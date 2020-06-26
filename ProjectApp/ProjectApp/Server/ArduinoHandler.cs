@@ -20,11 +20,11 @@ namespace ProjectApp.Server
         /// <summary>Interval time in milliseconds to refresh the statuses.</summary>
         private const double refreshIntervalMilliseconds = 1000;
 
-        /// <summary>Event that gets fired when the status Refreshes</summary>
+        /// <summary>Event that gets fired when the status Refreshes which the GUI can listen to.</summary>
         public event EventHandler StatusRefreshedEvent;
 
         /// <summary>
-        /// Returns the static ArduinoHandler instance.
+        /// Returns the static ArduinoHandler Singleton instance.
         /// </summary>
         public static ArduinoHandler Handler
         {
@@ -68,6 +68,7 @@ namespace ProjectApp.Server
                 // Initialize values
                 OnStartup();
 
+                // Set refresh timer
                 Timer timer = new Timer(refreshIntervalMilliseconds);
                 timer.Elapsed += (obj, args) => RefreshStatus(true);
                 timer.Start();
@@ -76,7 +77,6 @@ namespace ProjectApp.Server
             // Something went wrong (like invalid IP or port)
             catch (Exception e)
             {
-                Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 Console.WriteLine("Could not connect because:");
                 Console.WriteLine(e.Message);
                 return false;
@@ -96,7 +96,7 @@ namespace ProjectApp.Server
         /// <summary>
         /// Refreshes the status on the main thread and fires off the StatusRefreshedEvent event. 
         /// </summary>
-        /// <param name="checkPackage">If the package needs to be checked. Optional to keep UI more responsive.</param>
+        /// <param name="checkPackage">If the package needs to be checked. Optional to keep UI more responsive since it's ran on the main thread.</param>
         public void RefreshStatus(bool checkPackage)
         {
             Device.BeginInvokeOnMainThread(() =>
@@ -169,6 +169,7 @@ namespace ProjectApp.Server
 
         /// <summary>
         /// Sends a message to the arduino to close and lock the box
+        /// NOTE: THIS METHOD BECAME UNUSED LATER
         /// </summary>
         //public void LockPackageBox()
         //{
@@ -178,7 +179,7 @@ namespace ProjectApp.Server
         //}
 
         /// <summary>
-        /// Sends a message to the arduino to open/unlock the box
+        /// Sends a message to the arduino to open/unlock the box.
         /// </summary>
         public void UnlockPackageBox()
         {
@@ -210,6 +211,8 @@ namespace ProjectApp.Server
         /// </summary>
         public void PackageStatus()
         {
+            // "YES" - There is a package
+            // "NO" - There is no package
 
             string response = connection.ExecuteCommand("p");
 

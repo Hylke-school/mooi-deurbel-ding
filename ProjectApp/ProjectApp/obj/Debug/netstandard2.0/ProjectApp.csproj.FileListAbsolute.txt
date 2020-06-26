@@ -16,21 +16,3 @@ C:\Users\Hylkje\Programming\Project 1.4\App\ProjectApp\ProjectApp\obj\Debug\nets
 C:\Users\Hylkje\Programming\Project 1.4\App\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\ref\ProjectApp.dll
 C:\Users\Hylkje\Programming\Project 1.4\App\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\ProjectApp.pdb
 C:\Users\Hylkje\Programming\Project 1.4\App\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\ProjectApp.csprojAssemblyReference.cache
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\bin\Debug\netstandard2.0\ProjectApp.deps.json
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\bin\Debug\netstandard2.0\ProjectApp.dll
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\bin\Debug\netstandard2.0\ref\ProjectApp.dll
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\bin\Debug\netstandard2.0\ProjectApp.pdb
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\ProjectApp.csprojAssemblyReference.cache
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\App.xaml.g.cs
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\Views\History.xaml.g.cs
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\Views\Home.xaml.g.cs
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\Views\MainPage.xaml.g.cs
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\Views\OpdrachtA.xaml.g.cs
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\Views\Settings.xaml.g.cs
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\ProjectApp.AssemblyInfoInputs.cache
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\ProjectApp.AssemblyInfo.cs
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\ProjectApp.csproj.CoreCompileInputs.cache
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\XamlC.stamp
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\ProjectApp.dll
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\ref\ProjectApp.dll
-C:\Users\Weezi\Desktop\School\Huiswerk\mooi-deurbel-ding\ProjectApp\ProjectApp\obj\Debug\netstandard2.0\ProjectApp.pdb

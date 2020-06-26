@@ -23,7 +23,11 @@ namespace ProjectApp.Views
         public Settings()
         {
             InitializeComponent();
+            
+            // Register StatusRefreshedEvent event listener
             arduinoHandler.StatusRefreshedEvent += RefreshGUI;
+
+            // Automatically fill in the IP and Port that was used the last time the app was used
 
             if (Application.Current.Properties.ContainsKey("IP"))
                 EntryIPAddress.Text = Application.Current.Properties["IP"] as string;
@@ -56,6 +60,7 @@ namespace ProjectApp.Views
             string ipAddress = EntryIPAddress.Text;
             string port = EntryPort.Text;
 
+            // Save the IP and port so next time the user starts the app they won't have to type it again
             Application.Current.Properties["IP"] = ipAddress;
             Application.Current.Properties["PORT"] = port;
             Application.Current.SavePropertiesAsync();

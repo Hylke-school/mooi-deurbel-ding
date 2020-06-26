@@ -17,6 +17,7 @@ namespace ProjectApp.Database
         /// <returns>A String with the current date and time</returns>
         public static string StoreCurrentDate()
         {
+            // SQLite doesn't support dates, so instead we store strings
             string date = DateTime.Now.ToString();
             db.Insert(new Date() { date = date });
 
@@ -30,10 +31,13 @@ namespace ProjectApp.Database
         public static List<String> GetHistoryDates()
         {
             List<Date> dates = new List<Date>(db.Table<Date>().ToList());
-            List<string> dateStrings = dates.ConvertAll(dateObject => dateObject.date);
-            List<string> dateStringsOrdered = dateStrings.OrderByDescending(x => DateTime.Parse(x)).ToList();
 
             // Conversion from List<Date> to List<string>
+            List<string> dateStrings = dates.ConvertAll(dateObject => dateObject.date);
+
+            // Order dates chronologically 
+            List<string> dateStringsOrdered = dateStrings.OrderByDescending(x => DateTime.Parse(x)).ToList();
+            
             return dateStringsOrdered;
         }
 
